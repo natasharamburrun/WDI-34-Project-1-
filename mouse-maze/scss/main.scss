@@ -1,0 +1,18 @@
+*{
+  box-sizing: border-box;
+}
+
+#maze {
+  width: 550px;
+  height: 500px;
+}
+
+#maze div {
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+#maze div.path{background-color: papayawhip;}
+#maze div.mouse{background-color: pink;}
+#maze div.blank{background-color: steelBlue;}
