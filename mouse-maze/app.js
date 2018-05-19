@@ -1,4 +1,4 @@
-$(()=>{
+$(()=> {
 
   const grid = [
     [9,9,9,9,9,0,9,9,9,9,9],
@@ -40,4 +40,28 @@ $(()=>{
       $element.appendTo('#maze');
     });
   });
+
+  $(document).on('keydown', function(e){
+    switch(e.which){
+      case 38:
+        console.log('up');
+        break;
+      case 39:
+        console.log('right');
+        break;
+      case 40:
+        console.log('down');
+        break;
+      case 37:
+        console.log('left');
+        break;
+    }
+  });
+
+
+
+  //Add up, down, right and left movements
+  // move the classes on the divs ie player1 and floor start with [1] to [0]
+  // only able to use pathways
+  // function moveClasses of divs (arr, fromIndex, toIndex){
 });
