@@ -49,23 +49,31 @@ $(()=> {
     switch(e.which){
       case 38:
         console.log('up');
-        if (grid[playerLocation.x-1][playerLocation.y] === 0 ||
-          grid[playerLocation.x-1][playerLocation.y] === 9){
+        if (grid[playerLocation.x-1][playerLocation.y] === 0){
           playerLocation.x-=1;
           moveDirection();
         }
         break;
       case 39:
         console.log('right');
-        $.mouse;
+        if (grid[playerLocation.x][playerLocation.y+1] === 0){
+          playerLocation.y+=1;
+          moveDirection();
+        }
         break;
       case 40:
         console.log('down');
-        $.mouse;
+        if (grid[playerLocation.x+1][playerLocation.y] === 0){
+          playerLocation.x+=1;
+          moveDirection();
+        }
         break;
       case 37:
         console.log('left');
-        $.mouse;
+        if (grid[playerLocation.x][playerLocation.y-1] === 0){
+          playerLocation.y-=1;
+          moveDirection();
+        }
         break;
     }
   });
