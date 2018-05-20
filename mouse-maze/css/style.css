@@ -17,7 +17,7 @@
 #maze div.mouse {
   background-color: pink; }
 
-#maze div.blank {
+#maze div.wall {
   background-color: steelBlue; }
 
 /*# sourceMappingURL=style.css.map */
