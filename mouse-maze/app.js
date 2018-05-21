@@ -2,8 +2,8 @@ $(()=> {
 
   const grid = [
     [9,9,9,9,9,9,9,0,9,9,9,9,9,9,9],
-    [0,0,0,0,0,0,0,0,0,0,0,0,2,0,0],
-    [9,9,9,0,9,9,9,0,9,9,9,0,9,9,9],
+    [0,0,2,0,0,0,0,0,0,0,0,0,2,0,0],
+    [9,9,9,3,9,9,9,0,9,9,9,3,9,9,9],
     [9,9,9,0,9,9,9,0,9,9,9,0,9,9,9],
     [9,9,5,0,9,9,9,0,9,9,9,0,5,9,9],
     [9,9,9,0,9,9,9,0,9,9,9,0,9,9,9],
@@ -19,7 +19,7 @@ $(()=> {
   ];
 
 
-  //grid 10 by 12
+  //grid 14 by 14
   //Player mouse cell 1, path cell 0, walls cell 9
   //cheese cell 2, repelent 3
   //computer cat cell 5
@@ -46,7 +46,10 @@ $(()=> {
           $element.addClass('cat');
         } else if(cell === 2){
           $element.addClass('treat path');
+        } else if (cell === 3){
+          $element.addClass('repelent path');
         }
+
         $element.attr('data-x', i);
         $element.attr('data-y', j);
         $element.appendTo('#maze');
@@ -58,7 +61,7 @@ $(()=> {
 
   function movePlayer(){
     $('.mouse').removeClass('mouse').addClass('path');
-    $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').addClass('mouse');
+    $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').removeClass('repelent').addClass('mouse');
   }
   // function movePlayer(){
   $(document).on('keydown', function(e){
