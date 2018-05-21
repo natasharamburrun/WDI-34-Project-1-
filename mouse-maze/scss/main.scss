@@ -3,8 +3,8 @@
 }
 
 #maze {
-  width: 550px;
-  height: 650px;
+  width: 750px;
+  height: 750px;
 }
 
 #maze div {
@@ -16,3 +16,9 @@
 #maze div.path{background-color: papayawhip;}
 #maze div.mouse{background-color: pink;}
 #maze div.wall{background-color: steelBlue;}
+#maze div.repelent{background-color: red;}
+#maze div.cat{background-color: purple;}
+
+#maze div.treat.path {
+  background-color: yellow;
+}

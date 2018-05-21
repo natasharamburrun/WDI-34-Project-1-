@@ -2,8 +2,8 @@
   box-sizing: border-box; }
 
 #maze {
-  width: 550px;
-  height: 650px; }
+  width: 750px;
+  height: 750px; }
 
 #maze div {
   border: 1px solid black;
@@ -19,5 +19,14 @@
 
 #maze div.wall {
   background-color: steelBlue; }
+
+#maze div.repelent {
+  background-color: red; }
+
+#maze div.cat {
+  background-color: purple; }
+
+#maze div.treat.path {
+  background-color: yellow; }
 
 /*# sourceMappingURL=style.css.map */
