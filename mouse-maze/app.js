@@ -59,16 +59,24 @@ $(()=> {
   }
   generateGrid();
 
+
+
   function movePlayer(){
     $('.mouse').removeClass('mouse').addClass('path');
     $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').removeClass('repelent').addClass('mouse');
   }
   // function movePlayer(){
   $(document).on('keydown', function(e){
+    const x = playerMovement.x;
+    const y = playerMovement.y;
+    let checkSquareX = x, checkSquareY = y;
+
     switch(e.which){
       case 38://up
-        if ($(`div[data-x='${playerMovement.x - 1}'][data-y='${playerMovement.y}']`).hasClass('path')){
-          playerMovement.x-=1;
+        checkSquareX = x - 1;
+        if (checkSquareX < 0) checkSquareX = 14;
+        if ($(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`).hasClass('path')){
+          playerMovement.x -=1;
           if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('wall')){
             playerMovement.x+=1;
             return null;
@@ -80,7 +88,9 @@ $(()=> {
         }
         break;
       case 39://right
-        if ($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y + 1}']`).hasClass('path')){
+        checkSquareY = y + 1;
+        if (checkSquareY > 14) checkSquareY = 0;
+        if ($(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`).hasClass('path')){
           playerMovement.y+=1;
           if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('wall')){
             playerMovement.y-=1;
@@ -93,8 +103,9 @@ $(()=> {
         }
         break;
       case 40://down
-        // if (grid[playerMovement.x][playerMovement.y > 12 ? playerMovement.y - 1 : 0] === 0){
-        if ($(`div[data-x='${playerMovement.x + 1}'][data-y='${playerMovement.y}']`).hasClass('path')){
+        checkSquareX = x + 1;
+        if (checkSquareX > 14) checkSquareX = 0;
+        if ($(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`).hasClass('path')){
           playerMovement.x+=1;
           if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('wall')){
             playerMovement.x-=1;
@@ -107,8 +118,9 @@ $(()=> {
         }
         break;
       case 37://left
-        // if (grid[playerMovement.x][playerMovement.y > 0 ? playerMovement.y - 1 : 10] === 0){
-        if ($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y - 1}']`).hasClass('path')){
+        checkSquareY = y - 1;
+        if (checkSquareY < 0) checkSquareY = 14;
+        if ($(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`).hasClass('path')){
           playerMovement.y-=1;
           if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('wall')){
             playerMovement.y+=1;
