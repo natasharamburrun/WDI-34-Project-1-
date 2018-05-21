@@ -17,7 +17,7 @@ $(()=> {
   ];
 
 
-  //grid 11 by 13
+  //grid 10 by 12
   //Player mouse cell 1, path cell 0, walls cell 9
 
   let playerMovement ={};
@@ -47,7 +47,11 @@ $(()=> {
     });
   }
   generateGrid();
-
+  
+  function moveDirection(){
+    $('.mouse').removeClass('mouse').addClass('path');
+    $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('path').addClass('mouse');
+  }
   // function movePlayer(){
   $(document).on('keydown', function(e){
     switch(e.which){
@@ -78,6 +82,7 @@ $(()=> {
         }
         break;
       case 40://down
+        // if (grid[playerMovement.x][playerMovement.y > 12 ? playerMovement.y - 1 : 0] === 0){
         if (grid[playerMovement.x][playerMovement.y] === 0){
           playerMovement.x+=1;
           if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('wall')){
@@ -91,6 +96,7 @@ $(()=> {
         }
         break;
       case 37://left
+        // if (grid[playerMovement.x][playerMovement.y > 0 ? playerMovement.y - 1 : 10] === 0){
         if (grid[playerMovement.x][playerMovement.y] === 0){
           playerMovement.y-=1;
           if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('wall')){
@@ -105,14 +111,10 @@ $(()=> {
         break;
     }
   });
-  // if (grid[playerMovement.x][playerMovement.y > 0 ? playerMovement.y - 1 : 10] === 0){
-  // }
   //add a function to make the character move only in the pathways
   //move the classes on the divs (moveClasses) ie player and pathway start with [1] to [0]
-  function moveDirection(){
-    $('.mouse').removeClass('mouse').addClass('path');
-    $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('path').addClass('mouse');
-  }
+
+
   //make mouse pathway extended array [0][10]
   //collect cheese function
   //collect cat repelent posion function
