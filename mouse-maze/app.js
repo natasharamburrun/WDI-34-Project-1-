@@ -15,10 +15,12 @@ $(()=> {
     [0,0,0,0,0,0,0,0,0,0,0],
     [9,9,9,9,9,0,9,9,9,9,9]
   ];
+
+
   //grid 11 by 13
   //Player mouse cell 1, path cell 0, walls cell 9
 
-  let playerLocation ={};
+  let playerMovement ={};
 
   $('#maze').on('mouseover', 'div', function() {
     $('#cell-address').val(`${$(this).data('x')}-${$(this).data('y')}`);
@@ -32,8 +34,8 @@ $(()=> {
           $element.addClass('path');
         } else if (cell === 1){
           $element.addClass('mouse');
-          playerLocation = {x: i, y: j};
-          grid[playerLocation.x][playerLocation.y] = 0;
+          playerMovement = {x: i, y: j};
+          grid[playerMovement.x][playerMovement.y] = 0;
         } else if (cell === 9){
           $element.addClass('wall');
         }
@@ -41,52 +43,75 @@ $(()=> {
         $element.attr('data-y', j);
         $element.appendTo('#maze');
       });
-    //Add up, down, right and left movements
+      //Add up, down, right and left movements
     });
   }
   generateGrid();
+
   // function movePlayer(){
   $(document).on('keydown', function(e){
     switch(e.which){
-      case 38:
-        if (grid[playerLocation.x][playerLocation.y] === 0){
-          playerLocation.x-=1;
-          moveDirection();
-          if(playerLocation.x < 0){
-            playerLocation.x = 12;
-            $(`div[data-x='${playerLocation.x}'][data-y='${playerLocation.y}']`).removeClass('path').addClass('mouse');
+      case 38://up
+        if (grid[playerMovement.x][playerMovement.y] === 0){
+          playerMovement.x-=1;
+          if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('wall')){
+            playerMovement.x+=1;
+            return null;
           }
-        }
-        break;
-      case 39:
-        if (grid[playerLocation.x][playerLocation.y+1] === 0){
-          playerLocation.y+=1;
-          console.log('Location---->',grid[playerLocation.x][playerLocation.y+1]);
+          if(playerMovement.x < 0){
+            playerMovement.x = 12;
+          }
           moveDirection();
         }
         break;
-      case 40:
-        if (grid[playerLocation.x+1][playerLocation.y] === 0){
-          playerLocation.x+=1;
-          console.log('Location---->Down',playerLocation);
+      case 39://right
+        if (grid[playerMovement.x][playerMovement.y] === 0){
+          playerMovement.y+=1;
+          if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('wall')){
+            playerMovement.y-=1;
+            return null;
+          }
+          if(playerMovement.y > 10){
+            playerMovement.y = 0;
+          }
           moveDirection();
         }
         break;
-      case 37:
-        if (grid[playerLocation.x][playerLocation.y-1] === 0){
-          playerLocation.y-=1;
-          console.log('Location---->Left',playerLocation);
+      case 40://down
+        if (grid[playerMovement.x][playerMovement.y] === 0){
+          playerMovement.x+=1;
+          if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('wall')){
+            playerMovement.x-=1;
+            return null;
+          }
+          if(playerMovement.x > 12){
+            playerMovement.x = 0;
+          }
+          moveDirection();
+        }
+        break;
+      case 37://left
+        if (grid[playerMovement.x][playerMovement.y] === 0){
+          playerMovement.y-=1;
+          if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('wall')){
+            playerMovement.y+=1;
+            return null;
+          }
+          if(playerMovement.y < 0){
+            playerMovement.y = 10;
+          }
           moveDirection();
         }
         break;
     }
   });
+  // if (grid[playerMovement.x][playerMovement.y > 0 ? playerMovement.y - 1 : 10] === 0){
   // }
   //add a function to make the character move only in the pathways
   //move the classes on the divs (moveClasses) ie player and pathway start with [1] to [0]
   function moveDirection(){
     $('.mouse').removeClass('mouse').addClass('path');
-    $(`div[data-x='${playerLocation.x}'][data-y='${playerLocation.y}']`).removeClass('path').addClass('mouse');
+    $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('path').addClass('mouse');
   }
   //make mouse pathway extended array [0][10]
   //collect cheese function
