@@ -149,31 +149,50 @@ $(()=> {
     }
   });
 
-
-  //moveCats
-  // function checkMovement(){
-  // case 'right':
-  //   if(bearIndex%gridWidth !== gridWidth-1 && !cells[bearIndex+1].classList.contains('tree')) {
-  //     cells[bearIndex].classList.remove('bear');
-  //     bearIndex += 1;
-  //     cells[bearIndex].classList.add('bear');
-  //   } else {
-  //     direction = bearPosition[Math.floor(Math.random() * bearPosition.length)];
-  //     console.log(direction);
-  //   }
-  //   checkBear();
-  //   break;
-
-
   window.setInterval(function(){
     let makeRandomDecision = false;
     switch(direction) {
       case 'up':
+        if ($(`div[data-x='${catCellPosition.x - 1}'][data-y='${catCellPosition.y}']`).hasClass('cats')) {
+          // path is clear!
+          $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('cats').addClass('path');
+          catCellPosition.x -= 1;
+
+          console.log(direction);
+        } else {
+          // cat is blocked!
+          makeRandomDecision = true;
+        }
+        break;
+      case 'right':
+        if ($(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y + 1}']`).hasClass('cats')) {
+          // path is clear!
+          $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('cats').addClass('path');
+          catCellPosition.y += 1;
+
+          console.log(direction);
+        } else {
+          // cat is blocked!
+          makeRandomDecision = true;
+        }
+        break;
+      case 'down':
         if ($(`div[data-x='${catCellPosition.x + 1}'][data-y='${catCellPosition.y}']`).hasClass('cats')) {
           // path is clear!
           $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('cats').addClass('path');
           catCellPosition.x += 1;
 
+          console.log(direction);
+        } else {
+          // cat is blocked!
+          makeRandomDecision = true;
+        }
+        break;
+      case 'left':
+        if ($(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y - 1}']`).hasClass('cats')) {
+          // path is clear!
+          $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('cats').addClass('path');
+          catCellPosition.y -= 1;
           console.log(direction);
         } else {
           // cat is blocked!
@@ -187,47 +206,15 @@ $(()=> {
     }
   }, 1000);
 
-  // checkMovement();
 
-  //   function moveCats(){
-  //     $('.cats').removeClass('cats').addClass('path');
-  //
-  //   }
   // });
   //add a function to make the character move only in the pathways
   //move the classes on the divs (moveClasses) ie player and pathway start with [1] to [0]
   //
 
-  // const catMovement = ['up','down','left','right'];
-  // let direction = catMovement[3];
-  //
-
-
-
-
-  // set intercal called array with position
-  // switch directiomn case right
-  //
-  // if
-  //
-  // els if maths random * catPosition.length
-
-  //
-  //
-  //
-  // //
-  //
   // start movement of the cats when a key is pressed ie (up) add event (possibly will include false and true statement which includes if up, right, left is pressed )
   // move cats same theory as moving mouse (ie up, down, left and right) but with set interval when hit wall will turn direction
   // set interval and stop cats when collision with a mouse or mouse has collected all cheese treats
   // cats to randomly patrol the pathway
-  //
-  //   startCat.on('click', ()=> {
 
-//   catDirection = Math.floor(Math.random() * 2)
-// //
-// //   setInterval(() => {
-// //     if(playerMovement ===
-// //   });
-  // }
 });
