@@ -74,7 +74,9 @@ $(()=> {
     function getDiv(x, y) {
       return $(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`);
     }
+    console.log(getDiv());
     let $playMove = getDiv(x, y);
+    console.log($playMove);
 
     function movePlayer(){
       $('.mouse').removeClass('mouse').addClass('path');
@@ -82,6 +84,7 @@ $(()=> {
     }
     switch(e.which){
       case 38://up
+        console.log('up pressed');
         checkSquareX = x - 1;
         if (checkSquareX < 0) checkSquareX = 14;
         $checkSq = getDiv(checkSquareX, checkSquareY);
@@ -98,6 +101,7 @@ $(()=> {
         }
         break;
       case 39://right
+        console.log('right pressed');
         checkSquareY = y + 1;
         if (checkSquareY > 14) checkSquareY = 0;
         $checkSq = getDiv(checkSquareX, checkSquareY);
@@ -114,6 +118,7 @@ $(()=> {
         }
         break;
       case 40://down
+        console.log('down pressed');
         checkSquareX = x + 1;
         if (checkSquareX > 14) checkSquareX = 0;
         $checkSq = getDiv(checkSquareX, checkSquareY);
@@ -130,6 +135,7 @@ $(()=> {
         }
         break;
       case 37://left
+        console.log('left pressed');
         checkSquareY = y - 1;
         if (checkSquareY < 0) checkSquareY = 14;
         $checkSq = getDiv(checkSquareX, checkSquareY);
@@ -148,18 +154,17 @@ $(()=> {
     }
   });
 
-  let cellX;
-  let cellY;
+  // let cellX;
+  // let cellY;
 
   function moveCat(newPosition, oldPosition) {
-    console.log(oldPosition, newPosition);
+    // console.log(oldPosition, newPosition);
     // if wall
     if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
       // don't move
-      console.log('bump');
+      // console.log('bump');
       return null;
-    }
-    else {
+    } else {
       // No wall. We're free to move
       // remove cat from old square
       $(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass('cats').addClass('path');
@@ -173,28 +178,15 @@ $(()=> {
 
   window.setInterval(function(){
     direction = catDirection[Math.floor(Math.random() * catDirection.length)];
-    console.log(direction);
+    // console.log(direction);
     const newPosition = {};
     newPosition.x = catCellPosition.x;
     newPosition.y = catCellPosition.y;
     switch(direction) {
       case 'up':
-        console.log('UP---->', direction);
-        // if wall
-        if($(`div[data-x='${catCellPosition.x - 1}'][data-y='${catCellPosition.y}']`).hasClass('wall')) {
-          // don't move
-          return null;
-        }
-        else {
-          // No wall. We're free to move
-          // remove cat from old square
-          $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('cats').addClass('path');
-          // update cat position
-          catCellPosition.x -= 1;
-          if (catCellPosition.x < 0) catCellPosition.x = 14;
-          // add cat at new position
-          $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('path').addClass('cats');
-        }
+        newPosition.x -= 1;
+        if (newPosition.x < 0) newPosition.x = 14;
+        if (moveCat(newPosition, catCellPosition)) catCellPosition = newPosition;
         break;
 
       case 'right':
@@ -216,7 +208,7 @@ $(()=> {
         break;
     }
 
-  }, 500);
+  }, 200);
 
 
   // });
