@@ -1,11 +1,11 @@
 $(()=> {
 
-  const grid = [
+  let grid = [
     [9,9,9,9,9,9,9,2,9,9,9,9,9,9,9],
     [2,0,2,0,2,0,2,0,2,0,2,0,2,0,2],
-    [9,9,9,3,9,9,9,2,9,9,9,3,9,9,9],
+    [9,9,9,0,9,9,9,2,9,9,9,0,9,9,9],
     [9,9,9,2,9,9,9,0,9,9,9,2,9,9,9],
-    [9,9,9,5,9,9,9,2,9,9,9,5,9,9,9],
+    [9,9,9,0,9,9,9,2,9,9,9,5,9,9,9],
     [9,9,9,2,9,9,9,0,9,9,9,2,9,9,9],
     [9,9,9,0,9,9,9,0,9,9,9,0,9,9,9],
     [0,2,0,2,0,2,0,1,0,2,0,2,0,2,0],
@@ -17,7 +17,6 @@ $(()=> {
     [2,0,2,0,2,0,2,0,2,0,2,0,2,0,2],
     [9,9,9,9,9,9,9,2,9,9,9,9,9,9,9]
   ];
-
   //grid 14 by 14
   //Player mouse cell 1, path cell 0, walls cell 9
   //cheese cell 2, repellent 3
@@ -149,62 +148,75 @@ $(()=> {
     }
   });
 
+  let cellX;
+  let cellY;
+
+  function moveCat(newPosition, oldPosition) {
+    console.log(oldPosition, newPosition);
+    // if wall
+    if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
+      // don't move
+      console.log('bump');
+      return null;
+    }
+    else {
+      // No wall. We're free to move
+      // remove cat from old square
+      $(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass('cats').addClass('path');
+      // add cat at new position
+      $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass('cats');
+      // update cat position
+      return 'moved';
+    }
+
+  }
+
   window.setInterval(function(){
-    let makeRandomDecision = false;
+    direction = catDirection[Math.floor(Math.random() * catDirection.length)];
+    console.log(direction);
+    const newPosition = {};
+    newPosition.x = catCellPosition.x;
+    newPosition.y = catCellPosition.y;
     switch(direction) {
       case 'up':
-        if ($(`div[data-x='${catCellPosition.x - 1}'][data-y='${catCellPosition.y}']`).hasClass('cats')) {
-          // path is clear!
+        console.log('UP---->', direction);
+        // if wall
+        if($(`div[data-x='${catCellPosition.x - 1}'][data-y='${catCellPosition.y}']`).hasClass('wall')) {
+          // don't move
+          return null;
+        }
+        else {
+          // No wall. We're free to move
+          // remove cat from old square
           $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('cats').addClass('path');
+          // update cat position
           catCellPosition.x -= 1;
-
-          console.log(direction);
-        } else {
-          // cat is blocked!
-          makeRandomDecision = true;
+          if (catCellPosition.x < 0) catCellPosition.x = 14;
+          // add cat at new position
+          $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('path').addClass('cats');
         }
         break;
+
       case 'right':
-        if ($(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y + 1}']`).hasClass('cats')) {
-          // path is clear!
-          $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('cats').addClass('path');
-          catCellPosition.y += 1;
-
-          console.log(direction);
-        } else {
-          // cat is blocked!
-          makeRandomDecision = true;
-        }
+        newPosition.y += 1;
+        if (newPosition.y > 14) newPosition.y = 0;
+        if (moveCat(newPosition, catCellPosition)) catCellPosition = newPosition;
         break;
+
       case 'down':
-        if ($(`div[data-x='${catCellPosition.x + 1}'][data-y='${catCellPosition.y}']`).hasClass('cats')) {
-          // path is clear!
-          $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('cats').addClass('path');
-          catCellPosition.x += 1;
+        newPosition.x += 1;
+        if (newPosition.x > 14) newPosition.x = 0;
+        if (moveCat(newPosition, catCellPosition)) catCellPosition = newPosition;
+        break;
 
-          console.log(direction);
-        } else {
-          // cat is blocked!
-          makeRandomDecision = true;
-        }
-        break;
       case 'left':
-        if ($(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y - 1}']`).hasClass('cats')) {
-          // path is clear!
-          $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('cats').addClass('path');
-          catCellPosition.y -= 1;
-          console.log(direction);
-        } else {
-          // cat is blocked!
-          makeRandomDecision = true;
-        }
+        newPosition.y -= 1;
+        if (newPosition.y < 0) newPosition.y = 14;
+        if (moveCat(newPosition, catCellPosition)) catCellPosition = newPosition;
         break;
     }
-    if (makeRandomDecision) {
-      direction = catDirection[Math.floor(Math.random() * catDirection.length)];
-      console.log(direction);
-    }
-  }, 1000);
+
+  }, 500);
 
 
   // });

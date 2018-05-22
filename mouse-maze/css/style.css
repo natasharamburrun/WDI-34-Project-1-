@@ -20,10 +20,10 @@
 #maze div.wall {
   background-color: steelBlue; }
 
-#maze div.repelent {
+#maze div.repellent {
   background-color: red; }
 
-#maze div.cat {
+#maze div.cats {
   background-color: purple; }
 
 #maze div.treat.path {
