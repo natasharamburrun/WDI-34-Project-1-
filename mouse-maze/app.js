@@ -24,6 +24,10 @@ $(()=> {
   //computer cat cell 5
 
   let playerMovement = {};
+  let catCellPosition = {};
+  const catDirection = ['up','down','left','right'];
+  let direction = 'up';
+
 
   $('#maze').on('mouseover', 'div', function() {
     $('#cell-address').val(`${$(this).data('x')}-${$(this).data('y')}`);
@@ -42,9 +46,9 @@ $(()=> {
         } else if (cell === 9){
           $element.addClass('wall');
         } else if (cell === 5){
-          $element.addClass('cat');
-          catMovement = {x: i, y: j};
-          grid[catMovement.x][catMovement.y] = 0;
+          $element.addClass('cats');
+          catCellPosition = {x: i, y: j};
+          grid[catCellPosition.x][catCellPosition.y] = 0;
         } else if(cell === 2){
           $element.addClass('treat path');
         } else if (cell === 3){
@@ -61,7 +65,6 @@ $(()=> {
 
   //Add up, down, right and left movements
 
-
   $(document).on('keydown', function(e){
     const x = playerMovement.x;
     const y = playerMovement.y;
@@ -74,6 +77,10 @@ $(()=> {
     }
     let $playMove = getDiv(x, y);
 
+    function movePlayer(){
+      $('.mouse').removeClass('mouse').addClass('path');
+      $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').removeClass('repellent').addClass('mouse');
+    }
     switch(e.which){
       case 38://up
         checkSquareX = x - 1;
@@ -141,11 +148,47 @@ $(()=> {
         break;
     }
   });
-  function movePlayer(){
-    $('.mouse').removeClass('mouse').addClass('path');
-    $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').removeClass('repelent').addClass('mouse');
-  }
-  //
+
+
+  //moveCats
+  // function checkMovement(){
+  // case 'right':
+  //   if(bearIndex%gridWidth !== gridWidth-1 && !cells[bearIndex+1].classList.contains('tree')) {
+  //     cells[bearIndex].classList.remove('bear');
+  //     bearIndex += 1;
+  //     cells[bearIndex].classList.add('bear');
+  //   } else {
+  //     direction = bearPosition[Math.floor(Math.random() * bearPosition.length)];
+  //     console.log(direction);
+  //   }
+  //   checkBear();
+  //   break;
+
+
+  window.setInterval(function(){
+    let makeRandomDecision = false;
+    switch(direction) {
+      case 'up':
+        if ($(`div[data-x='${catCellPosition.x + 1}'][data-y='${catCellPosition.y}']`).hasClass('cats')) {
+          // path is clear!
+          $(`div[data-x='${catCellPosition.x}'][data-y='${catCellPosition.y}']`).removeClass('cats').addClass('path');
+          catCellPosition.x += 1;
+
+          console.log(direction);
+        } else {
+          // cat is blocked!
+          makeRandomDecision = true;
+        }
+        break;
+    }
+    if (makeRandomDecision) {
+      direction = catDirection[Math.floor(Math.random() * catDirection.length)];
+      console.log(direction);
+    }
+  }, 1000);
+
+  // checkMovement();
+
   //   function moveCats(){
   //     $('.cats').removeClass('cats').addClass('path');
   //
@@ -158,21 +201,7 @@ $(()=> {
   // const catMovement = ['up','down','left','right'];
   // let direction = catMovement[3];
   //
-  // //moveCats
-  // setInterval(function(){
-  //   switch(direction) {
-  //     case 'up':
-  //       if($(`div[data-x='${catMovement.x}'][data-y='${catMovement.y}']`).hasClass('cats')){
-  //         $(`div[data-x='${catMovement.x}'][data-y='${catMovement.y}']`).removeClass('cats').addClass('path');
-  //       } else {
-  //         direction = catMovement[Math.floor(Math.random() * catMovement.length)];
-  //         console.log(catMovement);
-  //       }
-  //       break;
-  //   }
-  // }, 1000);
-  //
-  // checkMovement();
+
 
 
 
