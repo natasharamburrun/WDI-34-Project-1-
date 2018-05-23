@@ -23,13 +23,19 @@ $(()=> {
   //computer cat cell 5
 
   let playerMovement = {};
-  let cat1CellPosition = {};
-  let cat2CellPosition = {};
-  let cat3CellPosition = {};
   const catDirection = ['up','down','left','right'];
+  const cats = [{
+    name: 'cat1',
+    cellPosition: {}
+  }, {
+    name: 'cat2',
+    cellPosition: {}
+  }, {
+    name: 'cat3',
+    cellPosition: {}
+  }];
   let direction = 'up';
-  // let scoreBoard = 0;
-  let levelCounter = 3;
+  let lifeCounter = 3;
 
 
   $('#maze').on('mouseover', 'div', function() {
@@ -50,16 +56,16 @@ $(()=> {
           $element.addClass('wall');
         } else if (cell === 5){
           $element.addClass('cat1');
-          cat1CellPosition = {x: i, y: j};
-          grid[cat1CellPosition.x][cat1CellPosition.y] = 0;
+          cats[0].cellPosition = {x: i, y: j};
+          grid[cats[0].cellPosition.x][cats[0].cellPosition.y] = 0;
         } else if (cell === 6){
           $element.addClass('cat2');
-          cat2CellPosition = {x: i, y: j};
-          grid[cat2CellPosition.x][cat2CellPosition.y] = 0;
+          cats[1].cellPosition = {x: i, y: j};
+          grid[cats[1].cellPosition.x][cats[1].cellPosition.y] = 0;
         } else if (cell === 7) {
           $element.addClass('cat3');
-          cat3CellPosition = {x: i, y: j};
-          grid[cat3CellPosition.x][cat3CellPosition.y] = 0;
+          cats[2].cellPosition = {x: i, y: j};
+          grid[cats[2].cellPosition.x][cats[2].cellPosition.y] = 0;
         } else if(cell === 2){
           $element.addClass('treat path');
         } else if (cell === 3){
@@ -73,8 +79,6 @@ $(()=> {
     });
   }
   generateGrid();
-
-
 
   $(document).on('keydown', function(e){
     const x = playerMovement.x;
@@ -90,15 +94,6 @@ $(()=> {
     // let $caughtMouse;
     //
     //
-    // function catchMouse(){
-    //   if (cat1.hasClass('mouse') || cat2.hasClass('mouse') || cat3.hasClass('mouse')){
-    //     console.log('caught');
-    //     levelCounter--;
-    //     //check life if mouseLife < 0
-    //     //     if(levelCounter < 0) {
-    //     //       //gameOver!!
-    //   }
-    // }
 
     // function checkMousePath(){
     //   if($playMove.hasClass('cat1') || $playMove.hasClass('cat2') || $playMove.hasClass('cat3')){
@@ -113,6 +108,9 @@ $(()=> {
 
     function movePlayer(){
     //replace mouse placement with paveway
+      cats.forEach(function(cat) {
+        if($('#maze div').hasClass(`mouse ${cat.name}`)) console.log('cat dinner');
+      });
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
       $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').removeClass('repellent').addClass('mouse');
@@ -212,118 +210,66 @@ $(()=> {
       $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass(cat);
       // update cat position
       return 'moved';
+
     }
   }
 
   window.setInterval(function(){
     //automated cats to move around the grid. Direction of travel is detemined randomly by computer
     direction = catDirection[Math.floor(Math.random() * catDirection.length)];
-
-    const newPosition = {};
-    newPosition.x = cat1CellPosition.x;
-    newPosition.y = cat1CellPosition.y;
-    switch(direction) {
-      //change the direction of the cats travel to up
-      case 'up':
-        newPosition.x -= 1;
-        //stops cats from traveling past the grid parameters
-        if (newPosition.x < 0) newPosition.x = 14;
-        if (moveCats(newPosition, cat1CellPosition, 'cat1')) cat1CellPosition = newPosition;
-        break;
-        //change the direction of the cats travel to right
-      case 'right':
-        newPosition.y += 1;
-        //stops cats from traveling past the grid parameters
-        if (newPosition.y > 14) newPosition.y = 0;
-        if (moveCats(newPosition, cat1CellPosition, 'cat1')) cat1CellPosition = newPosition;
-        break;
-        //change the direction of the cats travel to down
-      case 'down':
-        newPosition.x += 1;
-        //stops cats from traveling past the grid parameters
-        if (newPosition.x > 14) newPosition.x = 0;
-        if (moveCats(newPosition, cat1CellPosition, 'cat1')) cat1CellPosition = newPosition;
-        break;
-        //change the direction of the cats travel to left
-      case 'left':
-        newPosition.y -= 1;
-        //stops cats from traveling past the grid parameters
-        if (newPosition.y < 0) newPosition.y = 14;
-        if (moveCats(newPosition, cat1CellPosition, 'cat1')) cat1CellPosition = newPosition;
-        break;
-    }
+    cats.forEach(function(cat) {
+      const newPosition = {x: cat.cellPosition.x, y: cat.cellPosition.y};
+      switch(direction){
+        //change the direction of the cats travel to up
+        case 'up':
+          newPosition.x -= 1;
+          //stops cats from traveling past the grid parameters
+          if (newPosition.x < 0) newPosition.x = 14;
+          if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
+          break;
+          //change the direction of the cats travel to right
+        case 'right':
+          newPosition.y += 1;
+          //stops cats from traveling past the grid parameters
+          if (newPosition.y > 14) newPosition.y = 0;
+          if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
+          break;
+          //change the direction of the cats travel to down
+        case 'down':
+          newPosition.x += 1;
+          //stops cats from traveling past the grid parameters
+          if (newPosition.x > 14) newPosition.x = 0;
+          if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
+          break;
+          //change the direction of the cats travel to left
+        case 'left':
+          newPosition.y -= 1;
+          //stops cats from traveling past the grid parameters
+          if (newPosition.y < 0) newPosition.y = 14;
+          if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
+          break;
+      }
+    });
   }, 200);
 
 
 
-  window.setInterval(function(){
-    //automated cats to move around the grid. Direction of travel is detemined randomly by computer
-    direction = catDirection[Math.floor(Math.random() * catDirection.length)];
-    const newPosition = {};
-    newPosition.x = cat2CellPosition.x;
-    newPosition.y = cat2CellPosition.y;
-    switch(direction) {
-      case 'up':
-        newPosition.x -= 1;
-        if (newPosition.x < 0) newPosition.x = 14;
-        if (moveCats(newPosition, cat2CellPosition, 'cat2')) cat2CellPosition = newPosition;
-        break;
-
-      case 'right':
-        newPosition.y += 1;
-        if (newPosition.y > 14) newPosition.y = 0;
-        if (moveCats(newPosition, cat2CellPosition, 'cat2')) cat2CellPosition = newPosition;
-        break;
-
-      case 'down':
-        newPosition.x += 1;
-        if (newPosition.x > 14) newPosition.x = 0;
-        if (moveCats(newPosition, cat2CellPosition, 'cat2')) cat2CellPosition = newPosition;
-        break;
-
-      case 'left':
-        newPosition.y -= 1;
-        if (newPosition.y < 0) newPosition.y = 14;
-        if (moveCats(newPosition, cat2CellPosition, 'cat2')) cat2CellPosition = newPosition;
-        break;
-    }
-  }, 200);
+  // function catchMouse() {
+  //    if(cat === mouse){
+  //      score--;
+  //      numOfLives --;
+  //      lumberjackState =2;
+  //      actionCell = cells[lumberjackIndex];
+  //      actionCell.classList.add('lumberjackHurt');
+  //
+  //      if(lifebar.lastChild) lifebar.removeChild(lifebar.lastChild);
+  //      else lumberjackState = 3; // dead!
+  //      actionCell = cells[lumberjackIndex];
+  //      actionCell.classList.add('lumberjackAttack');
+  //    }
+  //  }
 
 
-  window.setInterval(function(){
-    //automated cats to move around the grid. Direction of travel is detemined randomly by computer
-    direction = catDirection[Math.floor(Math.random() * catDirection.length)];
-    const newPosition = {};
-    newPosition.x = cat3CellPosition.x;
-    newPosition.y = cat3CellPosition.y;
-
-    switch(direction) {
-
-      case 'up':
-        newPosition.x -= 1;
-        if (newPosition.x < 0) newPosition.x = 14;
-        if (moveCats(newPosition, cat3CellPosition, 'cat3')) cat3CellPosition = newPosition;
-        break;
-
-      case 'right':
-        newPosition.y += 1;
-        if (newPosition.y > 14) newPosition.y = 0;
-        if (moveCats(newPosition, cat3CellPosition, 'cat3')) cat3CellPosition = newPosition;
-        break;
-
-      case 'down':
-        newPosition.x += 1;
-        if (newPosition.x > 14) newPosition.x = 0;
-        if (moveCats(newPosition, cat3CellPosition, 'cat3')) cat3CellPosition = newPosition;
-        break;
-
-      case 'left':
-        newPosition.y -= 1;
-        if (newPosition.y < 0) newPosition.y = 14;
-        if (moveCats(newPosition, cat3CellPosition, 'cat3')) cat3CellPosition = newPosition;
-        break;
-    }
-  }, 200);
   //
 
 // for postions - clear interval set to how long
