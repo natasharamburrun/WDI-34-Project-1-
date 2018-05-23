@@ -1,9 +1,22 @@
 * {
   box-sizing: border-box; }
 
+h1 {
+  color: steelBlue;
+  font-size: 50px;
+  font-weight: bolder;
+  margin: 0px; }
+
+body {
+  margin: auto;
+  width: 650px;
+  overflow: auto;
+  margin: 45px auto 55px;
+  text-align: center; }
+
 #maze {
-  width: 750px;
-  height: 750px; }
+  width: 650px;
+  height: 650px; }
 
 #maze div {
   border: 1px solid black;

@@ -2,20 +2,52 @@
   box-sizing: border-box;
 }
 
-#maze {
-  width: 750px;
-  height: 750px;
+h1{
+  color: steelBlue;
+  font-size: 50px;
+  font-weight: bolder;
+  margin: 0px;
 }
 
-#maze div {
+body{
+  margin: auto;
+  width: 650px;
+  overflow: auto;
+  margin: 45px auto 55px;
+  text-align: center;
+}
+
+#maze {
+  width: 650px;
+  height: 650px;
+}
+
+#maze div{
   border: 1px solid black;
   width: 50px;
   height: 50px;
   float: left;
 }
-#maze div.path{background-color: papayawhip;}
-#maze div.mouse{background-color: pink;}
-#maze div.wall{background-color: steelBlue;}
+#maze div.path{
+  background-color: papayawhip;
+  // background-image: url(./image/wood_texgen_1.jpg);
+  // width: 50px;
+  // background-size: contain;
+  // background-repeat: no-repeat;
+  // position: absolute;
+}
+#maze div.mouse{
+  background-color: pink;
+  // background-image: url(./image/mouse_images.png);
+}
+#maze div.wall{
+  background-color: steelBlue;
+  // background-image: url(./image/Grass.02.png);
+  // width: 50px;
+  // background-size: contain;
+  // background-repeat: no-repeat;
+  // position: absolute;
+}
 #maze div.repellent{background-color: red;}
 #maze div.cat1{background-color: green;}
 #maze div.cat2{background-color: green;}

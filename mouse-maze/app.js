@@ -1,23 +1,21 @@
 $(()=> {
 
   let grid = [
-    [9,9,9,9,9,9,9,2,9,9,9,9,9,9,9],
-    [2,0,2,0,2,0,2,0,2,0,2,0,2,0,2],
-    [9,9,9,0,9,9,9,2,9,9,9,0,9,9,9],
-    [9,9,9,2,9,9,9,0,9,9,9,2,9,9,9],
-    [9,9,9,6,9,9,9,2,9,9,9,5,9,9,9],
-    [9,9,9,2,9,9,9,0,9,9,9,2,9,9,9],
-    [9,9,9,0,9,9,9,0,9,9,9,0,9,9,9],
-    [0,2,0,2,0,2,0,1,0,2,0,2,0,2,0],
-    [9,9,2,9,2,9,9,0,9,9,2,9,2,9,9],
-    [9,9,0,9,0,9,9,0,9,9,0,9,0,9,9],
-    [9,9,2,9,2,9,9,2,9,9,2,9,2,9,9],
-    [9,9,0,9,0,9,9,7,9,9,0,9,0,9,9],
-    [9,9,2,9,2,9,9,2,9,9,2,9,2,9,9],
-    [2,0,2,0,2,0,2,0,2,0,2,0,2,0,2],
-    [9,9,9,9,9,9,9,2,9,9,9,9,9,9,9]
+    [9,9,9,9,9,9,2,9,9,9,9,9,9],
+    [2,2,0,2,0,2,0,2,0,2,0,2,2],
+    [9,9,2,9,9,9,0,9,9,9,2,9,9],
+    [9,9,6,9,9,9,2,9,9,9,5,9,9],
+    [9,9,2,9,9,9,0,9,9,9,2,9,9],
+    [9,9,0,9,9,9,0,9,9,9,0,9,9],
+    [0,0,2,0,2,0,1,0,2,0,2,0,0],
+    [9,2,9,2,9,9,0,9,9,2,9,2,9],
+    [9,0,9,0,9,9,0,9,9,0,9,0,9],
+    [9,2,9,2,9,9,2,9,9,2,9,2,9],
+    [9,0,9,0,9,9,7,9,9,0,9,0,9],
+    [2,2,0,2,0,2,0,2,0,2,0,2,2],
+    [9,9,9,9,9,9,2,9,9,9,9,9,9]
   ];
-  //grid 14 by 14
+  //grid 12 by 12
   //Player mouse cell 1, path cell 0, walls cell 9
   //cheese cell 2, repellent 3
   //computer cat cell 5
@@ -93,19 +91,31 @@ $(()=> {
     }
     const $playMove = getDiv();
 
+    function collectTreat(){
+      if ($playMove.hasClass('treat')){
+        console.log('yay');
+        treat++;
+        if (treat > 46)
+          alert('YOU WON');
+        console.log('treat');
+      }
+    }
+
     function movePlayer(){
       //cat caught mouse
       cats.forEach(function(cat) {
         if($('#maze div').hasClass(`mouse ${cat.name}`)) {
           console.log('cat dinner');
           lifeCounter--;
+          //check if mouseLife < 1
           if(lifeCounter < 1)
             alert('GAME OVER');
           console.log('lifeCounter');
+
           // if($('#maze div').hasClass(`mouse ${cat.name}`))if ('mouse').removeClass('treat');
           // console.log('treat');
           // treat++;
-          //check if mouseLife < 0
+
         }
       //check if collected all treats
       //   treat ++;
@@ -113,6 +123,7 @@ $(()=> {
       });
       // else if(treat > 46) alert('YOU WIN');
       //replace mouse placement with paveway
+
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
       $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').removeClass('repellent').addClass('mouse');
@@ -123,7 +134,7 @@ $(()=> {
     switch(e.which){
       case 38://up
         checkSquareX = x - 1;
-        if (checkSquareX < 0) checkSquareX = 14;
+        if (checkSquareX < 0) checkSquareX = 12;
         $checkSq = getDiv(checkSquareX, checkSquareY);
         if ($checkSq.hasClass('path')){
           playerMovement.x -= 1;
@@ -132,16 +143,17 @@ $(()=> {
             return null;
           }
           if(playerMovement.x < 0){
-            playerMovement.x = 14;
+            playerMovement.x = 12;
           }
           movePlayer();
+          collectTreat();
         }
         break;
         //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
         // playerMovement enables the mouse to move using the key right
       case 39://right
         checkSquareY = y + 1;
-        if (checkSquareY > 14) checkSquareY = 0;
+        if (checkSquareY > 12) checkSquareY = 0;
         $checkSq = getDiv(checkSquareX, checkSquareY);
         if ($checkSq.hasClass('path')){
           playerMovement.y+= 1;
@@ -149,17 +161,18 @@ $(()=> {
             playerMovement.y-= 1;
             return null;
           }
-          if(playerMovement.y > 14){
+          if(playerMovement.y > 12){
             playerMovement.y = 0;
           }
           movePlayer();
+          collectTreat();
         }
         break;
         //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
         // playerMovement enables the mouse to move using the key down
       case 40://down
         checkSquareX = x + 1;
-        if (checkSquareX > 14) checkSquareX = 0;
+        if (checkSquareX > 12) checkSquareX = 0;
         $checkSq = getDiv(checkSquareX, checkSquareY);
         if ($checkSq.hasClass('path')){
           playerMovement.x+= 1;
@@ -167,17 +180,18 @@ $(()=> {
             playerMovement.x-= 1;
             return null;
           }
-          if(playerMovement.x > 14){
+          if(playerMovement.x > 12){
             playerMovement.x = 0;
           }
           movePlayer();
+          collectTreat();
         }
         break;
         //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
         // playerMovement enables the mouse to move using the key left
       case 37://left
         checkSquareY = y - 1;
-        if (checkSquareY < 0) checkSquareY = 14;
+        if (checkSquareY < 0) checkSquareY = 12;
         $checkSq = getDiv(checkSquareX, checkSquareY);
         if ($checkSq.hasClass('path')){
           playerMovement.y-= 1;
@@ -186,9 +200,10 @@ $(()=> {
             return null;
           }
           if(playerMovement.y < 0){
-            playerMovement.y = 14;
+            playerMovement.y = 12;
           }
           movePlayer();
+          collectTreat();
         }
         break;
     }
@@ -223,28 +238,28 @@ $(()=> {
         case 'up':
           newPosition.x -= 1;
           //stops cats from traveling past the grid parameters
-          if (newPosition.x < 0) newPosition.x = 14;
+          if (newPosition.x < 0) newPosition.x = 12;
           if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
           break;
           //change the direction of the cats travel to right
         case 'right':
           newPosition.y += 1;
           //stops cats from traveling past the grid parameters
-          if (newPosition.y > 14) newPosition.y = 0;
+          if (newPosition.y > 12) newPosition.y = 0;
           if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
           break;
           //change the direction of the cats travel to down
         case 'down':
           newPosition.x += 1;
           //stops cats from traveling past the grid parameters
-          if (newPosition.x > 14) newPosition.x = 0;
+          if (newPosition.x > 12) newPosition.x = 0;
           if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
           break;
           //change the direction of the cats travel to left
         case 'left':
           newPosition.y -= 1;
           //stops cats from traveling past the grid parameters
-          if (newPosition.y < 0) newPosition.y = 14;
+          if (newPosition.y < 0) newPosition.y = 12;
           if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
           break;
       }
