@@ -34,8 +34,9 @@ $(()=> {
     name: 'cat3',
     cellPosition: {}
   }];
-  let direction = 'up';
+  let direction
   let lifeCounter = 3;
+  let treat
 
 
   $('#maze').on('mouseover', 'div', function() {
@@ -91,30 +92,32 @@ $(()=> {
       return $(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`);
     }
     const $playMove = getDiv();
-    // let $caughtMouse;
-    //
-    //
-
-    // function checkMousePath(){
-    //   if($playMove.hasClass('cat1') || $playMove.hasClass('cat2') || $playMove.hasClass('cat3')){
-    //     console.log('caught!');
-    //     levelCounter--;
-    //     //check life if mouseLife < 0
-    //     if(levelCounter < 0) {
-    //       //gameOver!!
-    //     }
-    //   }
-    // }
 
     function movePlayer(){
-    //replace mouse placement with paveway
+      //cat caught mouse
       cats.forEach(function(cat) {
-        if($('#maze div').hasClass(`mouse ${cat.name}`)) console.log('cat dinner');
+        if($('#maze div').hasClass(`mouse ${cat.name}`)) {
+          console.log('cat dinner');
+          lifeCounter--;
+          if(lifeCounter < 1)
+            alert('GAME OVER');
+          console.log('lifeCounter');
+          // if($('#maze div').hasClass(`mouse ${cat.name}`))if ('mouse').removeClass('treat');
+          // console.log('treat');
+          // treat++;
+          //check if mouseLife < 0
+        }
+      //check if collected all treats
+      //   treat ++;
+      //   if(treat > 9) alert('You win');
       });
+      // else if(treat > 46) alert('YOU WIN');
+      //replace mouse placement with paveway
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
       $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').removeClass('repellent').addClass('mouse');
     }
+
     //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
     // playerMovement enables the mouse to move using the key up
     switch(e.which){
@@ -132,7 +135,6 @@ $(()=> {
             playerMovement.x = 14;
           }
           movePlayer();
-          // catchMouse();
         }
         break;
         //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
@@ -151,7 +153,6 @@ $(()=> {
             playerMovement.y = 0;
           }
           movePlayer();
-          // catchMouse();
         }
         break;
         //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
@@ -170,7 +171,6 @@ $(()=> {
             playerMovement.x = 0;
           }
           movePlayer();
-          // catchMouse();
         }
         break;
         //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
@@ -189,7 +189,6 @@ $(()=> {
             playerMovement.y = 14;
           }
           movePlayer();
-          // catchMouse();
         }
         break;
     }
@@ -252,16 +251,6 @@ $(()=> {
     });
   }, 200);
 
-
-
-  // function catchMouse() {
-  //    if(cat === mouse){
-  //      score--;
-  //      numOfLives --;
-  //      lumberjackState =2;
-  //      actionCell = cells[lumberjackIndex];
-  //      actionCell.classList.add('lumberjackHurt');
-  //
   //      if(lifebar.lastChild) lifebar.removeChild(lifebar.lastChild);
   //      else lumberjackState = 3; // dead!
   //      actionCell = cells[lumberjackIndex];
@@ -270,13 +259,8 @@ $(()=> {
   //  }
 
 
-  //
-
-// for postions - clear interval set to how long
   // });
-  //add a function to make the character move only in the pathways
-  //move the classes on the divs (moveClasses) ie player and pathway start with [1] to [0]
-  //
+
 
   // start movement of the cat1 when a key is pressed ie (up) add event (possibly will include false and true statement which includes if up, right, left is pressed )
   // move cat1 same theory as moving mouse (ie up, down, left and right) but with set interval when hit wall will turn direction
