@@ -28,8 +28,8 @@ $(()=> {
   let cat3CellPosition = {};
   const catDirection = ['up','down','left','right'];
   let direction = 'up';
-  let scoreBoard = 0;
-  let lifeCounter = 0;
+  // let scoreBoard = 0;
+  let levelCounter = 3;
 
 
   $('#maze').on('mouseover', 'div', function() {
@@ -74,7 +74,7 @@ $(()=> {
   }
   generateGrid();
 
-  //Add up, down, right and left movements
+
 
   $(document).on('keydown', function(e){
     const x = playerMovement.x;
@@ -83,20 +83,32 @@ $(()=> {
     let checkSquareX = x, checkSquareY = y;
     let $checkSq;
 
-    function getDiv(x, y) {
+    function getDiv() {
       return $(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`);
     }
-    console.log(getDiv());
-    let $playMove = getDiv(x, y);
-    console.log($playMove);
+    const $playMove = getDiv();
+
+    function checkMousePath(){
+      if($playMove.hasClass('cat1') || $playMove.hasClass('cat2') || $playMove.hasClass('cat3')){
+        console.log('caught!');
+        levelCounter--;
+        //check life if mouseLife < 0
+        if(levelCounter < 0) {
+          //gameOver!!
+        }
+      }
+    }
 
     function movePlayer(){
+    //replace mouse placement with paveway
       $('.mouse').removeClass('mouse').addClass('path');
+      //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
       $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').removeClass('repellent').addClass('mouse');
     }
+    //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
+    // playerMovement enables the mouse to move using the key up
     switch(e.which){
       case 38://up
-        console.log('up pressed');
         checkSquareX = x - 1;
         if (checkSquareX < 0) checkSquareX = 14;
         $checkSq = getDiv(checkSquareX, checkSquareY);
@@ -110,10 +122,12 @@ $(()=> {
             playerMovement.x = 14;
           }
           movePlayer();
+          checkMousePath();
         }
         break;
+        //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
+        // playerMovement enables the mouse to move using the key right
       case 39://right
-        console.log('right pressed');
         checkSquareY = y + 1;
         if (checkSquareY > 14) checkSquareY = 0;
         $checkSq = getDiv(checkSquareX, checkSquareY);
@@ -127,10 +141,12 @@ $(()=> {
             playerMovement.y = 0;
           }
           movePlayer();
+          checkMousePath();
         }
         break;
+        //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
+        // playerMovement enables the mouse to move using the key down
       case 40://down
-        console.log('down pressed');
         checkSquareX = x + 1;
         if (checkSquareX > 14) checkSquareX = 0;
         $checkSq = getDiv(checkSquareX, checkSquareY);
@@ -144,10 +160,12 @@ $(()=> {
             playerMovement.x = 0;
           }
           movePlayer();
+          checkMousePath();
         }
         break;
+        //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
+        // playerMovement enables the mouse to move using the key left
       case 37://left
-        console.log('left pressed');
         checkSquareY = y - 1;
         if (checkSquareY < 0) checkSquareY = 14;
         $checkSq = getDiv(checkSquareX, checkSquareY);
@@ -161,167 +179,164 @@ $(()=> {
             playerMovement.y = 14;
           }
           movePlayer();
+          checkMousePath();
         }
         break;
     }
   });
 
-  // let cellX;
-  // let cellY;
   function moveCat1(newPosition, oldPosition) {
-    // console.log(oldPosition, newPosition);
-    // if wall
-    // if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
-    //   // don't move
-    //   // console.log('bump');
-    //   return null;
-    // } else {
-    // No wall. We're free to move
-    // remove cat from old square
-    if($(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass('cat1').addClass('path'));
-    // add cat at new position
-    $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass('cat1');
-    // update cat position
-    return 'moved';
+    if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
+      // don't move
+      // console.log('bump');
+      return null;
+    } else {
+      // No wall. We're free to move
+      // remove cat from old square
+      if($(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass('cat1').addClass('path'));
+      // add cat at new position
+      $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass('cat1');
+      // update cat position
+      return 'moved';
+    }
   }
 
   window.setInterval(function(){
+    //automated cats to move around the grid. Direction of travel is detemined randomly by computer
     direction = catDirection[Math.floor(Math.random() * catDirection.length)];
-    // console.log(direction);
     const newPosition = {};
     newPosition.x = cat1CellPosition.x;
     newPosition.y = cat1CellPosition.y;
     switch(direction) {
+      //change the direction of the cats travel to up
       case 'up':
         newPosition.x -= 1;
-        if (newPosition.x < 0) newPosition.x = 0;
+        //stops cats from traveling past the grid parameters
+        if (newPosition.x < 0) newPosition.x = 14;
         if (moveCat1(newPosition, cat1CellPosition)) cat1CellPosition = newPosition;
         break;
-
+        //change the direction of the cats travel to right
       case 'right':
         newPosition.y += 1;
-        if (newPosition.y > 14) newPosition.y = 14;
+        //stops cats from traveling past the grid parameters
+        if (newPosition.y > 14) newPosition.y = 0;
         if (moveCat1(newPosition, cat1CellPosition)) cat1CellPosition = newPosition;
         break;
-
+        //change the direction of the cats travel to down
       case 'down':
         newPosition.x += 1;
-        if (newPosition.x > 14) newPosition.x = 14;
+        //stops cats from traveling past the grid parameters
+        if (newPosition.x > 14) newPosition.x = 0;
         if (moveCat1(newPosition, cat1CellPosition)) cat1CellPosition = newPosition;
         break;
-
+        //change the direction of the cats travel to left
       case 'left':
         newPosition.y -= 1;
-        if (newPosition.y < 0) newPosition.y = 0;
+        //stops cats from traveling past the grid parameters
+        if (newPosition.y < 0) newPosition.y = 14;
         if (moveCat1(newPosition, cat1CellPosition)) cat1CellPosition = newPosition;
         break;
     }
-  }, 400);
+  }, 200);
 
   function moveCat2(newPosition, oldPosition) {
-    // console.log(oldPosition, newPosition);
-    // if wall
-    // if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
-    //   // don't move
-    //   // console.log('bump');
-    //   return null;
-    // } else {
-    // No wall. We're free to move
-    // remove cat from old square
-    if($(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass('cat2').addClass('path'));
-    // add cat at new position
-    $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass('cat2');
-    // update cat position
-    return 'moved';
+    if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
+      // don't move
+      // console.log('bump');
+      return null;
+    } else {
+      // No wall. We're free to move
+      // remove cat from old square
+      $(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass('cat2').addClass('path');
+      // add cat at new position
+      $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass('cat2');
+      // update cat position
+      return 'moved';
+    }
   }
 
   window.setInterval(function(){
+    //automated cats to move around the grid. Direction of travel is detemined randomly by computer
     direction = catDirection[Math.floor(Math.random() * catDirection.length)];
-    // console.log(direction);
     const newPosition = {};
     newPosition.x = cat2CellPosition.x;
     newPosition.y = cat2CellPosition.y;
     switch(direction) {
       case 'up':
         newPosition.x -= 1;
-        if (newPosition.x < 0) newPosition.x = 0;
+        if (newPosition.x < 0) newPosition.x = 14;
         if (moveCat2(newPosition, cat2CellPosition)) cat2CellPosition = newPosition;
         break;
 
       case 'right':
         newPosition.y += 1;
-        if (newPosition.y > 14) newPosition.y = 14;
+        if (newPosition.y > 14) newPosition.y = 0;
         if (moveCat2(newPosition, cat2CellPosition)) cat2CellPosition = newPosition;
         break;
 
       case 'down':
         newPosition.x += 1;
-        if (newPosition.x > 14) newPosition.x = 14;
+        if (newPosition.x > 14) newPosition.x = 0;
         if (moveCat2(newPosition, cat2CellPosition)) cat2CellPosition = newPosition;
         break;
 
       case 'left':
         newPosition.y -= 1;
-        if (newPosition.y < 0) newPosition.y = 0;
+        if (newPosition.y < 0) newPosition.y = 14;
         if (moveCat2(newPosition, cat2CellPosition)) cat2CellPosition = newPosition;
         break;
     }
-  }, 300);
+  }, 200);
 
   function moveCat3(newPosition, oldPosition) {
-    // console.log(oldPosition, newPosition);
-    // if wall
-    // if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
-    //   // don't move
-    //   // console.log('bump');
-    //   return null;
-    // } else {
+    if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
+      // don't move
+      // console.log('bump');
+      return null;
+    } else {
     // No wall. We're free to move
     // remove cat from old square
-    if($(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass('cat3').addClass('path'));
-    // add cat at new position
-    $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass('cat3');
-    // update cat position
-    return 'moved';
+      if($(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass('cat3').addClass('path'));
+      // add cat at new position
+      $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass('cat3');
+      // update cat position
+      return 'moved';
+    }
   }
 
   window.setInterval(function(){
+    //automated cats to move around the grid. Direction of travel is detemined randomly by computer
     direction = catDirection[Math.floor(Math.random() * catDirection.length)];
-    // console.log(direction);
     const newPosition = {};
     newPosition.x = cat3CellPosition.x;
     newPosition.y = cat3CellPosition.y;
     switch(direction) {
       case 'up':
         newPosition.x -= 1;
-        if (newPosition.x < 0) newPosition.x = 0;
+        if (newPosition.x < 0) newPosition.x = 14;
         if (moveCat3(newPosition, cat3CellPosition)) cat3CellPosition = newPosition;
         break;
 
       case 'right':
         newPosition.y += 1;
-        if (newPosition.y > 14) newPosition.y = 14;
+        if (newPosition.y > 14) newPosition.y = 0;
         if (moveCat3(newPosition, cat3CellPosition)) cat3CellPosition = newPosition;
         break;
 
       case 'down':
         newPosition.x += 1;
-        if (newPosition.x > 14) newPosition.x = 14;
+        if (newPosition.x > 14) newPosition.x = 0;
         if (moveCat3(newPosition, cat3CellPosition)) cat3CellPosition = newPosition;
         break;
 
       case 'left':
         newPosition.y -= 1;
-        if (newPosition.y < 0) newPosition.y = 0;
+        if (newPosition.y < 0) newPosition.y = 14;
         if (moveCat3(newPosition, cat3CellPosition)) cat3CellPosition = newPosition;
         break;
     }
-  }, 300);
+  }, 200);
   //
-  if(mouse === cat1 && mouse === cat2) {
-    lifeCounter --;
-    scoreBoard --;
-  }
 
 // for postions - clear interval set to how long
   // });
