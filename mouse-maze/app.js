@@ -28,6 +28,8 @@ $(()=> {
   let cat3CellPosition = {};
   const catDirection = ['up','down','left','right'];
   let direction = 'up';
+  let scoreBoard = 0;
+  let lifeCounter = 0;
 
 
   $('#maze').on('mouseover', 'div', function() {
@@ -184,7 +186,7 @@ $(()=> {
   }
 
   window.setInterval(function(){
-    direction = catDirection[Math.floor(Math.random() * 3)];
+    direction = catDirection[Math.floor(Math.random() * catDirection.length)];
     // console.log(direction);
     const newPosition = {};
     newPosition.x = cat1CellPosition.x;
@@ -192,25 +194,25 @@ $(()=> {
     switch(direction) {
       case 'up':
         newPosition.x -= 1;
-        if (newPosition.x < 0) newPosition.x = 14;
+        if (newPosition.x < 0) newPosition.x = 0;
         if (moveCat1(newPosition, cat1CellPosition)) cat1CellPosition = newPosition;
         break;
 
       case 'right':
         newPosition.y += 1;
-        if (newPosition.y > 14) newPosition.y = 0;
+        if (newPosition.y > 14) newPosition.y = 14;
         if (moveCat1(newPosition, cat1CellPosition)) cat1CellPosition = newPosition;
         break;
 
       case 'down':
         newPosition.x += 1;
-        if (newPosition.x > 14) newPosition.x = 0;
+        if (newPosition.x > 14) newPosition.x = 14;
         if (moveCat1(newPosition, cat1CellPosition)) cat1CellPosition = newPosition;
         break;
 
       case 'left':
         newPosition.y -= 1;
-        if (newPosition.y < 0) newPosition.y = 14;
+        if (newPosition.y < 0) newPosition.y = 0;
         if (moveCat1(newPosition, cat1CellPosition)) cat1CellPosition = newPosition;
         break;
     }
@@ -234,7 +236,7 @@ $(()=> {
   }
 
   window.setInterval(function(){
-    direction = catDirection[Math.floor(Math.random() * 3)];
+    direction = catDirection[Math.floor(Math.random() * catDirection.length)];
     // console.log(direction);
     const newPosition = {};
     newPosition.x = cat2CellPosition.x;
@@ -242,25 +244,25 @@ $(()=> {
     switch(direction) {
       case 'up':
         newPosition.x -= 1;
-        if (newPosition.x < 0) newPosition.x = 14;
+        if (newPosition.x < 0) newPosition.x = 0;
         if (moveCat2(newPosition, cat2CellPosition)) cat2CellPosition = newPosition;
         break;
 
       case 'right':
         newPosition.y += 1;
-        if (newPosition.y > 14) newPosition.y = 0;
+        if (newPosition.y > 14) newPosition.y = 14;
         if (moveCat2(newPosition, cat2CellPosition)) cat2CellPosition = newPosition;
         break;
 
       case 'down':
         newPosition.x += 1;
-        if (newPosition.x > 14) newPosition.x = 0;
+        if (newPosition.x > 14) newPosition.x = 14;
         if (moveCat2(newPosition, cat2CellPosition)) cat2CellPosition = newPosition;
         break;
 
       case 'left':
         newPosition.y -= 1;
-        if (newPosition.y < 0) newPosition.y = 14;
+        if (newPosition.y < 0) newPosition.y = 0;
         if (moveCat2(newPosition, cat2CellPosition)) cat2CellPosition = newPosition;
         break;
     }
@@ -284,7 +286,7 @@ $(()=> {
   }
 
   window.setInterval(function(){
-    direction = catDirection[Math.floor(Math.random() * 3)];
+    direction = catDirection[Math.floor(Math.random() * catDirection.length)];
     // console.log(direction);
     const newPosition = {};
     newPosition.x = cat3CellPosition.x;
@@ -292,35 +294,34 @@ $(()=> {
     switch(direction) {
       case 'up':
         newPosition.x -= 1;
-        if (newPosition.x < 0) newPosition.x = 14;
+        if (newPosition.x < 0) newPosition.x = 0;
         if (moveCat3(newPosition, cat3CellPosition)) cat3CellPosition = newPosition;
         break;
 
       case 'right':
         newPosition.y += 1;
-        if (newPosition.y > 14) newPosition.y = 0;
+        if (newPosition.y > 14) newPosition.y = 14;
         if (moveCat3(newPosition, cat3CellPosition)) cat3CellPosition = newPosition;
         break;
 
       case 'down':
         newPosition.x += 1;
-        if (newPosition.x > 14) newPosition.x = 0;
+        if (newPosition.x > 14) newPosition.x = 14;
         if (moveCat3(newPosition, cat3CellPosition)) cat3CellPosition = newPosition;
         break;
 
       case 'left':
         newPosition.y -= 1;
-        if (newPosition.y < 0) newPosition.y = 14;
+        if (newPosition.y < 0) newPosition.y = 0;
         if (moveCat3(newPosition, cat3CellPosition)) cat3CellPosition = newPosition;
         break;
     }
   }, 300);
   //
-  // if(mouse === cat1 && mouse === cat2) {
-  // lifeCounter --
-  // scoreBoard ---
-  //   ;
-  // }
+  if(mouse === cat1 && mouse === cat2) {
+    lifeCounter --;
+    scoreBoard --;
+  }
 
 // for postions - clear interval set to how long
   // });
