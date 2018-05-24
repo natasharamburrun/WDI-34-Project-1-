@@ -25,28 +25,37 @@ body {
   float: left; }
 
 #maze div.path {
-  background-image: url("../image/wood_texgen_1.jpg"); }
+  background-image: url("../image/more_rough_wood_6.jpg");
+  border: none;
+  width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat; }
 
 #maze div.mouse {
-  background-color: pink; }
+  background-color: pink;
+  background-size: contain;
+  background-repeat: no-repeat; }
+
+#maze div.path.treat {
+  background-image: url("../image/bag.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: solid; }
 
 #maze div.wall {
-  background-color: steelBlue; }
+  background-image: url("../image/Grass_02.png");
+  border: none;
+  width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat; }
 
 #maze div.repellent {
   background-color: red; }
 
-#maze div.cat1 {
-  background-color: green; }
-
-#maze div.cat2 {
-  background-color: green; }
-
-#maze div.cat3 {
-  background-color: green; }
-
-#maze div.treat.path {
-  background-color: yellow; }
+#maze div.cat1.cat2.cat3 {
+  background-image: url("../image/cat.png");
+  background-size: contain;
+  background-repeat: no-repeat; }
 
 #maze div.repelent.path {
   background-color: orange; }

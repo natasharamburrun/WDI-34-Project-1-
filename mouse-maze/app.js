@@ -1,21 +1,21 @@
 $(()=> {
 
   let grid = [
-    [9,9,9,9,9,9,2,9,9,9,9,9,9],
-    [2,2,0,2,0,2,0,2,0,2,0,2,2],
+    [9,9,9,9,9,9,0,9,9,9,9,9,9],
+    [0,2,0,0,0,2,0,2,0,0,0,2,0],
     [9,9,2,9,9,9,0,9,9,9,2,9,9],
     [9,9,6,9,9,9,2,9,9,9,5,9,9],
     [9,9,2,9,9,9,0,9,9,9,2,9,9],
     [9,9,0,9,9,9,0,9,9,9,0,9,9],
-    [0,0,2,0,2,0,1,0,2,0,2,0,0],
+    [0,0,0,0,0,0,1,0,0,0,0,0,0],
     [9,2,9,2,9,9,0,9,9,2,9,2,9],
     [9,0,9,0,9,9,0,9,9,0,9,0,9],
     [9,2,9,2,9,9,2,9,9,2,9,2,9],
     [9,0,9,0,9,9,7,9,9,0,9,0,9],
-    [2,2,0,2,0,2,0,2,0,2,0,2,2],
-    [9,9,9,9,9,9,2,9,9,9,9,9,9]
+    [0,2,0,0,0,2,0,2,0,0,0,2,0],
+    [9,9,9,9,9,9,0,9,9,9,9,9,9]
   ];
-  //grid 12 by 12
+  //grid 11 by 10
   //Player mouse cell 1, path cell 0, walls cell 9
   //cheese cell 2, repellent 3
   //computer cat cell 5
@@ -123,8 +123,8 @@ $(()=> {
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
       if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')) treat ++;
-      if(treat > 3) alert('you win!');
-      $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').removeClass('repellent').addClass('mouse');
+      if(treat > 28) alert('you win!');
+      $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat repellent path').addClass('mouse');
     }
 
     //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
