@@ -1,6 +1,14 @@
 *{
   box-sizing: border-box;
+}
 
+header{
+  background-color: white;
+}
+
+p {
+  background-color: white;
+  font-size: 20px;
 }
 
 h1{
@@ -22,27 +30,25 @@ body{
   overflow: auto;
   margin: 45px auto 55px;
   text-align: center;
-  background-image:  url("../image/cartoon-cats.jpg");
+  background-image: url("../image/cartoon-cats.jpg");
 }
 
 .myForm{
-
 }
 
-p {
+h2 {
   font-size: 30px;
   font-weight: bolder;
 }
 
-img{
-
+#floorBackground{
+  width: 650px;
+  height: 650px;
+  background-image: url("../image/more_rough_wood_6.jpg");
+  border: none;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
-
-// #floorBackground{
-//   width: 650px;
-//   height: 650px;
-//   background-image: url("../image/more_rough_wood_6.jpg");
-// }
 
 #lifebar {
   box-sizing: border-box;
@@ -60,7 +66,6 @@ img{
   float: left;
 }
 #maze div.path{
-  // background-color: papayawhip;
   background-image: url("../image/more_rough_wood_6.jpg");
   border: none;
   width: 50px;
@@ -75,7 +80,6 @@ img{
 
 #maze div.path.treat{
   background-image: url("../image/coin_gold_1.png");
-  background-color: white;
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
@@ -87,24 +91,21 @@ img{
   background-size: contain;
   background-repeat: no-repeat;
 }
-// #maze div.repellent{background-color: red;}
 
 #maze div.cat1{
-  background-image: url("../image/blackcat1image.png");
+  background-image: url("../image/blackCatNew.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 #maze div.cat2{
-  background-image: url("../image/blackcat1image.png");
+  background-image: url("../image/blackCatNew.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 #maze div.cat3{
-  background-image: url("../image/blackcat1image.png");
+  background-image: url("../image/blackCatNew.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
-//
-// #maze div.repellent.path {background-color: orange;}

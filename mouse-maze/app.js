@@ -153,6 +153,7 @@ $(()=> {
       }
       if(treat > 21){
         alert('you win!');
+        location.reload();
       }
       $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat repellent path').addClass('mouse');
     }
