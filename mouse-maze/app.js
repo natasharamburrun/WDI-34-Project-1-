@@ -33,8 +33,12 @@ $(()=> {
     cellPosition: {}
   }];
   let direction;
-  let lifeCounter = 3;
+  let lifeCounter = 2;
   let treat = 0;
+
+  const audio = document.querySelector('#audio');
+  audio.src = './music/Faded.wav';
+  audio.play();
 
 
   $('#maze').on('mouseover', 'div', function() {
@@ -123,7 +127,7 @@ $(()=> {
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
       if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')) treat ++;
-      if(treat > 28) alert('you win!');
+      if(treat > 21) alert('you win!');
       $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat repellent path').addClass('mouse');
     }
 

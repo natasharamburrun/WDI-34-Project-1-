@@ -37,14 +37,13 @@ body{
   background-repeat: no-repeat;
 }
 #maze div.mouse{
-  background-color: pink;
-  // background-image: url("../image/");
+  background-image: url("../image/brown mouse.jpeg");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 #maze div.path.treat{
-  background-image: url("../image/bag.png");
+  background-image: url("../image/coin_gold_1.png");
   background-size: contain;
   background-repeat: no-repeat;
   border: solid;
@@ -57,13 +56,24 @@ body{
   background-repeat: no-repeat;
 }
 #maze div.repellent{background-color: red;}
-#maze div.cat1.cat2.cat3{
-  background-image: url("../image/cat.png");
+
+#maze div.cat1{
+  background-image: url("../image/blackcat1image.png");
   background-size: contain;
   background-repeat: no-repeat;
   // background-color: green;
 }
-// #maze div.cat2{background-color: green;}
-// #maze div.cat3{background-color: green;}
-// #maze div.treat.path {background-color: yellow;}
+
+#maze div.cat2{
+  background-image: url("../image/blackcat1image.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#maze div.cat3{
+  background-image: url("../image/blackcat1image.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 #maze div.repelent.path {background-color: orange;}
