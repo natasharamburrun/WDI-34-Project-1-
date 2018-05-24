@@ -1,21 +1,30 @@
 * {
-  box-sizing: border-box;
-  background-color: white; }
+  box-sizing: border-box; }
 
 h1 {
-  color: steelBlue;
   font-size: 50px;
   font-weight: bolder;
   margin: 0px; }
+
+h3 {
+  font-size: 18px;
+  font-weight: bolder;
+  margin: 0px;
+  margin-bottom: 15px; }
 
 body {
   margin: auto;
   width: 650px;
   overflow: auto;
   margin: 45px auto 55px;
-  text-align: center; }
+  text-align: center;
+  background-image: url("../image/cartoon-cats.jpg"); }
 
-lifebar {
+p {
+  font-size: 30px;
+  font-weight: bolder; }
+
+#lifebar {
   box-sizing: border-box; }
 
 #maze {
@@ -54,9 +63,6 @@ lifebar {
   background-size: contain;
   background-repeat: no-repeat; }
 
-#maze div.repellent {
-  background-color: red; }
-
 #maze div.cat1 {
   background-image: url("../image/blackcat1image.png");
   background-size: contain;
@@ -71,8 +77,5 @@ lifebar {
   background-image: url("../image/blackcat1image.png");
   background-size: contain;
   background-repeat: no-repeat; }
-
-#maze div.repelent.path {
-  background-color: orange; }
 
 /*# sourceMappingURL=style.css.map */

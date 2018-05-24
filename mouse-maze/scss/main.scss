@@ -1,13 +1,19 @@
 *{
   box-sizing: border-box;
-  background-color: white;
+
 }
 
 h1{
-  color: steelBlue;
   font-size: 50px;
   font-weight: bolder;
   margin: 0px;
+}
+
+h3{
+  font-size: 18px;
+  font-weight: bolder;
+  margin: 0px;
+  margin-bottom: 15px;
 }
 
 body{
@@ -16,9 +22,29 @@ body{
   overflow: auto;
   margin: 45px auto 55px;
   text-align: center;
+  background-image:  url("../image/cartoon-cats.jpg");
 }
 
-lifebar{
+.myForm{
+
+}
+
+p {
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+img{
+
+}
+
+// #floorBackground{
+//   width: 650px;
+//   height: 650px;
+//   background-image: url("../image/more_rough_wood_6.jpg");
+// }
+
+#lifebar {
   box-sizing: border-box;
 }
 
@@ -61,7 +87,7 @@ lifebar{
   background-size: contain;
   background-repeat: no-repeat;
 }
-#maze div.repellent{background-color: red;}
+// #maze div.repellent{background-color: red;}
 
 #maze div.cat1{
   background-image: url("../image/blackcat1image.png");
@@ -80,5 +106,5 @@ lifebar{
   background-size: contain;
   background-repeat: no-repeat;
 }
-
-#maze div.repelent.path {background-color: orange;}
+//
+// #maze div.repellent.path {background-color: orange;}

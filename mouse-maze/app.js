@@ -46,10 +46,20 @@ $(()=> {
 
   const $life = $('.life');
   $life.text(lifeCounter);
+
+
   //Audio to be added to the game
   const audio = document.querySelector('audio');
-  audio.src = './music/Faded.wav';
-  audio.play();
+
+  function playTreats(){
+    audio.src = './sound/collect_treats_sound.wav';
+    audio.play();
+  }
+
+  function catchMouse(){
+    audio.src = './sound/collect_treats_sound.wav';
+    audio.play();
+  }
 
   function generateGrid(){
     $.each(grid,(i,row) => {
@@ -120,12 +130,12 @@ $(()=> {
       //cat caught mouse
       cats.forEach(function(cat) {
         if($('#maze div').hasClass(`mouse ${cat.name}`)) {
-
           lifeCounter--;
           $life.text(lifeCounter);
           //check if mouseLife < 1
           if(lifeCounter < 1)
             alert('GAME OVER');
+          catchMouse();
           $startScreen.hide();
           $endScreen.show();
         }
@@ -137,8 +147,13 @@ $(()=> {
 
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
-      if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')) treat ++;
-      if(treat > 21) alert('you win!');
+      if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')){
+        treat ++;
+        playTreats();
+      }
+      if(treat > 21){
+        alert('you win!');
+      }
       $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat repellent path').addClass('mouse');
     }
 

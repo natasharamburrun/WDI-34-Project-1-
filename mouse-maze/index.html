@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="app.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="./css/style.css">
-    <title>Mouse Maze</title>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="app.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="./css/style.css">
+  <title>Mouse Maze</title>
+</head>
+  <header>
     <h1>Mouse Maze</h1>
     <audio id="audio"></audio>
-
-      <div class="startScreen">
-        <p></p>
-        <div id="maze"></div>
-        <!-- <div class="score-board">Score: <span class="score">0</span></div> -->
-        <div class="lifeCounter">Life Bar<span class="life"></span></div>
+  </header>
+  <body>
+    <div class="startScreen">
+      <div class="Instructions">
+        <h3>Collect all treats to win the game but beware of the cats as they can instantly kill</h3>
       </div>
+      <div id="maze"></div>
+    <!-- <div id='floorBackground'><div id="maze"></div></div> -->
+    <!-- <div class="score-board">Score: <span class="score">0</span></div> -->
+      <div class="lifeCounter">Life Bar<span class="life"></span></div>
+  </div>
 
-    <div class="endScreen">
-      <p>lost</p>
-        <form id="myForm">
-		      <button type="button|submit|reset">Reset Game</button>
-       </form>
-    </div>
-    <!-- <input type="text" id="cell-address"> -->
-  </body>
+  <div class="endScreen">
+    <p>You Got Caught, Try Again!</p>
+    <form id="myForm">
+      <button type="button|submit|reset">Reset Game</button>
+    </form>
+  </div>
+  <!-- <input type="text" id="cell-address"> -->
+</body>
 </html>
