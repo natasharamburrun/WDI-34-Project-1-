@@ -25,7 +25,7 @@ body {
   float: left; }
 
 #maze div.path {
-  background-color: papayawhip; }
+  background-image: url("../image/wood_texgen_1.jpg"); }
 
 #maze div.mouse {
   background-color: pink; }

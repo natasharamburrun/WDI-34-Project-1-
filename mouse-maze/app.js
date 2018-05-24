@@ -32,9 +32,9 @@ $(()=> {
     name: 'cat3',
     cellPosition: {}
   }];
-  let direction
+  let direction;
   let lifeCounter = 3;
-  let treat
+  let treat = 0;
 
 
   $('#maze').on('mouseover', 'div', function() {
@@ -91,15 +91,15 @@ $(()=> {
     }
     const $playMove = getDiv();
 
-    function collectTreat(){
-      if ($playMove.hasClass('treat')){
-        console.log('yay');
-        treat++;
-        if (treat > 46)
-          alert('YOU WON');
-        console.log('treat');
-      }
-    }
+    // function collectTreat(){
+    //   // console.log('checking for treats');
+    //   console.log($('#maze div').hasClass('mouse treat'));
+    //   // if ($('#maze div').hasClass('mouse treat')){
+    //   //   console.log('yay');
+    //   //   treat++;
+    //   //   if (treat > 3)console.log('treat');
+    //   // }
+    // }
 
     function movePlayer(){
       //cat caught mouse
@@ -115,17 +115,15 @@ $(()=> {
           // if($('#maze div').hasClass(`mouse ${cat.name}`))if ('mouse').removeClass('treat');
           // console.log('treat');
           // treat++;
-
         }
-      //check if collected all treats
-      //   treat ++;
-      //   if(treat > 9) alert('You win');
       });
       // else if(treat > 46) alert('YOU WIN');
       //replace mouse placement with paveway
 
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
+      if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')) treat ++;
+      if(treat > 3) alert('you win!');
       $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat').removeClass('repellent').addClass('mouse');
     }
 
@@ -146,7 +144,6 @@ $(()=> {
             playerMovement.x = 12;
           }
           movePlayer();
-          collectTreat();
         }
         break;
         //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
@@ -165,7 +162,6 @@ $(()=> {
             playerMovement.y = 0;
           }
           movePlayer();
-          collectTreat();
         }
         break;
         //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
@@ -184,7 +180,6 @@ $(()=> {
             playerMovement.x = 0;
           }
           movePlayer();
-          collectTreat();
         }
         break;
         //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
@@ -203,7 +198,6 @@ $(()=> {
             playerMovement.y = 12;
           }
           movePlayer();
-          collectTreat();
         }
         break;
     }
