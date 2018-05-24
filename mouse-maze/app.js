@@ -19,9 +19,13 @@ $(()=> {
   //Player mouse cell 1, path cell 0, walls cell 9
   //cheese cell 2, repellent 3
   //computer cat cell 5
+  $('#maze').on('mouseover', 'div', function() {
+    $('#cell-address').val(`${$(this).data('x')}-${$(this).data('y')}`);
+  });
 
   let playerMovement = {};
   const catDirection = ['up','down','left','right'];
+  //merge the cats inc name and position on grid
   const cats = [{
     name: 'cat1',
     cellPosition: {}
@@ -33,17 +37,19 @@ $(()=> {
     cellPosition: {}
   }];
   let direction;
-  let lifeCounter = 2;
+  let lifeCounter = 3;
   let treat = 0;
+  const $endScreen = $('.endScreen');
+  const $startScreen = $('.startScreen');
+  $endScreen.hide();
+  document.getElementById('myForm').reset();
 
-  const audio = document.querySelector('#audio');
+  const $life = $('.life');
+  $life.text(lifeCounter);
+  //Audio to be added to the game
+  const audio = document.querySelector('audio');
   audio.src = './music/Faded.wav';
   audio.play();
-
-
-  $('#maze').on('mouseover', 'div', function() {
-    $('#cell-address').val(`${$(this).data('x')}-${$(this).data('y')}`);
-  });
 
   function generateGrid(){
     $.each(grid,(i,row) => {
@@ -84,6 +90,7 @@ $(()=> {
   generateGrid();
 
   $(document).on('keydown', function(e){
+    e.preventDefault();
     const x = playerMovement.x;
     const y = playerMovement.y;
 
@@ -94,35 +101,39 @@ $(()=> {
       return $(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`);
     }
     const $playMove = getDiv();
-
-    // function collectTreat(){
-    //   // console.log('checking for treats');
-    //   console.log($('#maze div').hasClass('mouse treat'));
-    //   // if ($('#maze div').hasClass('mouse treat')){
-    //   //   console.log('yay');
-    //   //   treat++;
-    //   //   if (treat > 3)console.log('treat');
-    //   // }
-    // }
+  //
+  //   function init(){
+  //     lifeCounter = document.querySelector('#lifeCounter');
+  //     for(let i=0; i<3; i++) addLife();
+  //     // grid.appendChild(Instructions)
+  //   }
+  //   init();
+  //
+  //   function addLife(){
+  //     numOfLives++;
+  //     const life = document.createElement('img');
+  //     life.src ='./images/heart.png';
+  //   lifebar.appendChild(life);
+  // }
 
     function movePlayer(){
       //cat caught mouse
       cats.forEach(function(cat) {
         if($('#maze div').hasClass(`mouse ${cat.name}`)) {
-          console.log('cat dinner');
+
           lifeCounter--;
+          $life.text(lifeCounter);
           //check if mouseLife < 1
           if(lifeCounter < 1)
             alert('GAME OVER');
-          console.log('lifeCounter');
-
-          // if($('#maze div').hasClass(`mouse ${cat.name}`))if ('mouse').removeClass('treat');
-          // console.log('treat');
-          // treat++;
+          $startScreen.hide();
+          $endScreen.show();
         }
       });
-      // else if(treat > 46) alert('YOU WIN');
-      //replace mouse placement with paveway
+
+      const resetButton = function () {
+      };
+
 
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
@@ -206,9 +217,7 @@ $(()=> {
         break;
     }
   });
-  // function positionOfCatOne(){
-  //   return $catPosition = $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`);
-  // }
+  //function to determine the position of the cats
   function moveCats(newPosition, oldPosition, cat){
     if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
       // don't move
@@ -268,16 +277,5 @@ $(()=> {
   //      else lumberjackState = 3; // dead!
   //      actionCell = cells[lumberjackIndex];
   //      actionCell.classList.add('lumberjackAttack');
-  //    }
-  //  }
-
-
-  // });
-
-
-  // start movement of the cat1 when a key is pressed ie (up) add event (possibly will include false and true statement which includes if up, right, left is pressed )
-  // move cat1 same theory as moving mouse (ie up, down, left and right) but with set interval when hit wall will turn direction
-  // set interval and stop cat1 when collision with a mouse or mouse has collected all cheese treats
-  // cat1 to randomly patrol the pathway
 
 });

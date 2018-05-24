@@ -1,5 +1,6 @@
 *{
   box-sizing: border-box;
+  background-color: white;
 }
 
 h1{
@@ -15,6 +16,10 @@ body{
   overflow: auto;
   margin: 45px auto 55px;
   text-align: center;
+}
+
+lifebar{
+  box-sizing: border-box;
 }
 
 #maze {
@@ -44,9 +49,10 @@ body{
 
 #maze div.path.treat{
   background-image: url("../image/coin_gold_1.png");
+  background-color: white;
   background-size: contain;
   background-repeat: no-repeat;
-  border: solid;
+  border: none;
 }
 #maze div.wall{
   background-image: url("../image/Grass_02.png");
@@ -61,7 +67,6 @@ body{
   background-image: url("../image/blackcat1image.png");
   background-size: contain;
   background-repeat: no-repeat;
-  // background-color: green;
 }
 
 #maze div.cat2{
