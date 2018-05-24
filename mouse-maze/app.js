@@ -55,7 +55,7 @@ $(()=> {
     audio.play();
   }
   function catchMouse(){
-    audio.src = './sound/Woosh.wav';
+    audio.src = './sound/Blop.wav';
     audio.play();
   }
   //grid provides the cordinates for the items listed on the maze
@@ -106,7 +106,7 @@ $(()=> {
       return $(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`);
     }
     const $playMove = getDiv();
-    
+
     //cat catch mouse
     function movePlayer(){
       cats.forEach(function(cat) {
