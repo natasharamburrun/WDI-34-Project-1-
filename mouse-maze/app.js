@@ -1,4 +1,6 @@
 $(()=> {
+  document.getElementById('myForm').reset();
+  const audio = document.querySelector('audio');
 
   let grid = [
     [9,9,9,9,9,9,0,9,9,9,9,9,9],
@@ -17,7 +19,7 @@ $(()=> {
   ];
   //grid 11 by 10
   //Player mouse cell 1, path cell 0, walls cell 9
-  //cheese cell 2, repellent 3
+  //cheese cell 2
   //computer cat cell 5
   $('#maze').on('mouseover', 'div', function() {
     $('#cell-address').val(`${$(this).data('x')}-${$(this).data('y')}`);
@@ -42,25 +44,21 @@ $(()=> {
   const $endScreen = $('.endScreen');
   const $startScreen = $('.startScreen');
   $endScreen.hide();
-  document.getElementById('myForm').reset();
 
   const $life = $('.life');
   $life.text(lifeCounter);
 
 
   //Audio to be added to the game
-  const audio = document.querySelector('audio');
-
   function playTreats(){
-    audio.src = './sound/collect_treats_sound.wav';
+    audio.src = './sound/Ting.wav';
     audio.play();
   }
-
   function catchMouse(){
-    audio.src = './sound/collect_treats_sound.wav';
+    audio.src = './sound/Woosh.wav';
     audio.play();
   }
-
+  //grid provides the cordinates for the items listed on the maze
   function generateGrid(){
     $.each(grid,(i,row) => {
       $.each(row,(j,cell) => {
@@ -87,10 +85,7 @@ $(()=> {
           grid[cats[2].cellPosition.x][cats[2].cellPosition.y] = 0;
         } else if(cell === 2){
           $element.addClass('treat path');
-        } else if (cell === 3){
-          $element.addClass('repellent path');
         }
-
         $element.attr('data-x', i);
         $element.attr('data-y', j);
         $element.appendTo('#maze');
@@ -111,39 +106,26 @@ $(()=> {
       return $(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`);
     }
     const $playMove = getDiv();
-  //
-  //   function init(){
-  //     lifeCounter = document.querySelector('#lifeCounter');
-  //     for(let i=0; i<3; i++) addLife();
-  //     // grid.appendChild(Instructions)
-  //   }
-  //   init();
-  //
-  //   function addLife(){
-  //     numOfLives++;
-  //     const life = document.createElement('img');
-  //     life.src ='./images/heart.png';
-  //   lifebar.appendChild(life);
-  // }
-
+    
+    //cat catch mouse
     function movePlayer(){
-      //cat caught mouse
       cats.forEach(function(cat) {
         if($('#maze div').hasClass(`mouse ${cat.name}`)) {
+          //once cat catch mouse loose a life
           lifeCounter--;
           $life.text(lifeCounter);
           //check if mouseLife < 1
           if(lifeCounter < 1)
-            alert('GAME OVER');
-          catchMouse();
+            // alert('GAME OVER');
+            catchMouse();
+            // End game page
           $startScreen.hide();
           $endScreen.show();
         }
       });
-
+      //button for player to press once game over
       const resetButton = function () {
       };
-
 
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
@@ -155,7 +137,7 @@ $(()=> {
         alert('you win!');
         location.reload();
       }
-      $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat repellent path').addClass('mouse');
+      $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat path').addClass('mouse');
     }
 
     //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
@@ -288,10 +270,4 @@ $(()=> {
       }
     });
   }, 200);
-
-  //      if(lifebar.lastChild) lifebar.removeChild(lifebar.lastChild);
-  //      else lumberjackState = 3; // dead!
-  //      actionCell = cells[lumberjackIndex];
-  //      actionCell.classList.add('lumberjackAttack');
-
 });
