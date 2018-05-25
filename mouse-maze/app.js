@@ -58,6 +58,24 @@ $(()=> {
     audio.src = './sound/Blop.wav';
     audio.play();
   }
+
+  function mouseCaught() {
+    cats.forEach(function(cat) {
+      if($('#maze div').hasClass(`mouse ${cat.name}`)) {
+        //once cat catch mouse loose a life
+        lifeCounter--;
+        $life.text(lifeCounter);
+        //check if mouseLife < 1
+        if(lifeCounter < 1) {
+          catchMouse();
+          // End game page
+          $startScreen.hide();
+          $endScreen.show();
+        }
+        // alert('GAME OVER');
+      }
+    });
+  }
   //grid provides the cordinates for the items listed on the maze
   function generateGrid(){
     $.each(grid,(i,row) => {
@@ -109,20 +127,7 @@ $(()=> {
 
     //cat catch mouse
     function movePlayer(){
-      cats.forEach(function(cat) {
-        if($('#maze div').hasClass(`mouse ${cat.name}`)) {
-          //once cat catch mouse loose a life
-          lifeCounter--;
-          $life.text(lifeCounter);
-          //check if mouseLife < 1
-          if(lifeCounter < 1)
-            // alert('GAME OVER');
-            catchMouse();
-            // End game page
-          $startScreen.hide();
-          $endScreen.show();
-        }
-      });
+      mouseCaught();
       //button for player to press once game over
       const resetButton = function () {
       };
@@ -228,8 +233,8 @@ $(()=> {
       // add cat at new position
       $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass(cat);
       // update cat position
+      mouseCaught();
       return 'moved';
-
     }
   }
 
