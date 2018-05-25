@@ -1,23 +1,106 @@
-/*
-Errno::ENOENT: No such file or directory @ rb_sysopen - scss/main.scss
+* {
+  box-sizing: border-box; }
 
-Backtrace:
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:454:in `read'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:454:in `update_stylesheet'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:209:in `each'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:294:in `watch'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin.rb:109:in `method_missing'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/exec/sass_scss.rb:360:in `watch_or_update'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/exec/sass_scss.rb:51:in `process_result'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/exec/base.rb:52:in `parse'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/lib/sass/exec/base.rb:19:in `parse!'
-/Library/Ruby/Gems/2.3.0/gems/sass-3.5.6/bin/sass:13:in `<top (required)>'
-/usr/local/bin/sass:22:in `load'
-/usr/local/bin/sass:22:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Errno::ENOENT: No such file or directory @ rb_sysopen - scss/main.scss"; }
+header {
+  color: white;
+  background-color: black;
+  border: 0px; }
+
+p {
+  color: white;
+  background-color: black;
+  font-size: 20px; }
+
+a
+h1 {
+  font-size: 50px;
+  font-weight: bolder;
+  margin: 0px; }
+
+h3 {
+  font-size: 18px;
+  font-weight: bolder;
+  margin: 0px;
+  margin-bottom: 15px; }
+
+body {
+  margin: auto;
+  width: 650px;
+  overflow: auto;
+  margin: 45px auto 55px;
+  text-align: center;
+  background-image: url("../image/cartoon-cats.jpg"); }
+
+.myForm {
+  font-size: 20px; }
+
+h2 {
+  font-size: 30px;
+  font-weight: bolder; }
+
+#floorBackground {
+  background-image: url("../image/more_rough_wood_6.jpg");
+  width: 650px;
+  height: 650px;
+  border: none;
+  background-size: contain;
+  background-repeat: no-repeat; }
+
+#lifebar {
+  box-sizing: border-box; }
+
+#maze {
+  width: 650px;
+  height: 650px; }
+
+#maze div {
+  width: 50px;
+  height: 50px;
+  float: left; }
+
+#maze div.path {
+  background-image: url("../image/more_rough_wood_6.jpg");
+  border: none;
+  width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat; }
+
+#maze div.mouse {
+  background-image: url("../image/Mouse2.png");
+  display: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none; }
+
+#maze div.path.treat {
+  background-image: url("../image/5-2-cheese-transparent.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none; }
+
+#maze div.wall {
+  background-image: url("../image/Grass_02.png");
+  border: none;
+  width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat; }
+
+#maze div.cat1 {
+  background-image: url("../image/blackCatNew.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none; }
+
+#maze div.cat2 {
+  background-image: url("../image/blackCatNew.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none; }
+
+#maze div.cat3 {
+  background-image: url("../image/blackCatNew.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none; }
+
+/*# sourceMappingURL=style.css.map */
