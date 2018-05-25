@@ -4,14 +4,17 @@
 
 header{
   color: white;
-  background-color: black;
+  background-color: grey;
   border: 0px;
+  padding: 0px;
+  border: solid black;
 }
 
 p {
   color: white;
-  background-color: black;
+  background-color: grey;
   font-size: 20px;
+  border: solid 1px black;
 }
 a
 h1{
@@ -33,7 +36,7 @@ body{
   overflow: auto;
   margin: 45px auto 55px;
   text-align: center;
-  background-image: url("../image/cartoon-cats.jpg");
+  background-image: url("../Image/cartoon-cats.jpg");
 }
 
 .myForm{
@@ -46,7 +49,7 @@ h2 {
 }
 
 #floorBackground{
-  background-image: url("../image/more_rough_wood_6.jpg");
+  background-image: url("../Image/more_rough_wood_6.jpg");
   width: 650px;
   height: 650px;
   border: none;
@@ -70,14 +73,14 @@ h2 {
   float: left;
 }
 #maze div.path{
-  background-image: url("../image/more_rough_wood_6.jpg");
+  background-image: url("../Image/more_rough_wood_6.jpg");
   border: none;
   width: 50px;
   background-size: contain;
   background-repeat: no-repeat;
 }
 #maze div.mouse{
-  background-image: url("../image/Mouse2.png");
+  background-image: url("../Image/Mouse2.png");
   display: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -85,13 +88,13 @@ h2 {
 }
 
 #maze div.path.treat{
-  background-image: url("../image/5-2-cheese-transparent.png");
+  background-image: url("../Image/5-2-cheese-transparent.png");
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
 }
 #maze div.wall{
-  background-image: url("../image/Grass_02.png");
+  background-image: url("../Image/Grass_02.png");
   border: none;
   width: 50px;
   background-size: contain;
@@ -99,21 +102,21 @@ h2 {
 }
 
 #maze div.cat1{
-  background-image: url("../image/blackCatNew.png");
+  background-image: url("../Image/blackCatNew.png");
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
 }
 
 #maze div.cat2{
-  background-image: url("../image/blackCatNew.png");
+  background-image: url("../Image/blackCatNew.png");
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
 }
 
 #maze div.cat3{
-  background-image: url("../image/blackCatNew.png");
+  background-image: url("../Image/blackCatNew.png");
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
