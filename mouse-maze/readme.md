@@ -15,11 +15,14 @@ All cheese items have been picked up to allow the player to win the game. I have
 
 <p align="center"><img src="https://i.imgur.com/30OhuGd.png" width="700"/></p>
 
+<p align="center"><img src="https://i.imgur.com/Lh7nu5Y.gif" width="700"/></p>
+
 <p align="center"><img src="https://i.imgur.com/cAicUv5.png" width="700"/></p>
 
 
 ##### Planned features
 The game is relatively simple and my desire would be to add additional features to enhance the gaming experience.
+
 A variety of levels which gradually makes the user interaction harder which includes obstacles and potions. Finally I would also like to include a scoreboard and life tracker to make the game be personal to the player.
 
 I enjoyed producing this game and am happy with the final product as it works as a basic game. I am looking to implement the planned features but also looking forward to making other games to test my abilities.
