@@ -46,12 +46,12 @@ h2 {
 }
 
 #floorBackground{
+  background-image: url("../image/more_rough_wood_6.jpg");
   width: 650px;
   height: 650px;
   border: none;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url("../image/more_rough_wood_6.jpg");
 }
 
 #lifebar {
@@ -64,7 +64,7 @@ h2 {
 }
 
 #maze div{
-  border: 1px solid black;
+  // border: 1px solid black;
   width: 50px;
   height: 50px;
   float: left;
@@ -81,6 +81,7 @@ h2 {
   display: center;
   background-size: contain;
   background-repeat: no-repeat;
+  border: none;
 }
 
 #maze div.path.treat{

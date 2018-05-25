@@ -50,14 +50,14 @@ $(()=> {
 
 
   //Audio to be added to the game
-  function playTreats(){
-    audio.src = './sound/Ting.wav';
-    audio.play();
-  }
-  function catchMouse(){
-    audio.src = './sound/Blop.wav';
-    audio.play();
-  }
+  // function playTreats(){
+  //   audio.src = './sound/Ting.wav';
+  //   audio.play();
+  // }
+  // function catchMouse(){
+  //   audio.src = './sound/Blop.wav';
+  //   audio.play();
+  // }
 
   function mouseCaught() {
     cats.forEach(function(cat) {
@@ -67,7 +67,7 @@ $(()=> {
         $life.text(lifeCounter);
         //check if mouseLife < 1
         if(lifeCounter < 1) {
-          catchMouse();
+          // catchMouse();
           // End game page
           $startScreen.hide();
           $endScreen.show();
@@ -136,7 +136,7 @@ $(()=> {
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
       if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')){
         treat ++;
-        playTreats();
+        // playTreats();
       }
       if(treat > 21){
         alert('you win!');
