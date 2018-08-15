@@ -5,29 +5,60 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="app.js" charset="utf-8"></script>
   <link rel="stylesheet" href="./css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Kalam" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Mouse Maze</title>
 </head>
   <header>
-    <h1>Mouse Maze</h1>
+    <h1>MOUSE MAZE</h1>
     <audio id="audio"></audio>
   </header>
   <body>
-    <div class="startScreen">
-      <div class="Instructions">
-          <p>Using keys up, down, left, right move the mouse around the decking.<br>
-          Collect all the cheese, well done you win!<br>
-          Beware of the cats, if you get caught you loose, <strong>Game over!</strong></p>
+
+  <div class="intropage">
+    <hr>
+    <div class="intro-container">
+      <div class="column">
+        <div class="instructions">
+          <h4>INSTRUCTIONS</h4>
+          <p>Beware of the cats, if you get caught you loose the game!</p>
+          <p>Collect all the cheese, well done you win!</p>
+        </div>
+        <div class="controls">
+          <h4>CONTROLS</h4>
+          <p>Press <i class="fa fa-arrow-up"></i> <i class="fa fa-arrow-down"></i> <i class="fa fa-arrow-left"></i> <i class="fa fa-arrow-right"></i> to move.</p>
+        </div>
       </div>
-      <div id='floorBackground'><div id="maze"></div></div>
-    <!-- <div class="score-board">Score: <span class="score">0</span></div> -->
-      <!-- <div class="lifeCounter">Life<span class="life"></span></div> -->
+      <div class="column">
+        <div class="mouseCharacter">
+          <img src="/images/loading.gif" height=250px alt="mouse animation">
+        </div>
+        <div class="catCharacter">
+          <img src="/images/loading.gif" height=250px alt="cat animation">
+        </div>
+        <div class="go">
+          <button id="playBtn">Play!</button>
+        </div>
+      </div>
+    <hr>
+      <p>A game by Natasha Ramburrun</p>
+    </div>
   </div>
 
   <div class="endScreen">
-    <h2>You Got Caught, Try Again!</h2>
-    <form id="myForm">
-      <button type="button|submit|reset">Play Game</button>
-    </form>
+    <div class="endGame-container">
+      <h2>Oops!! You Got Caught</h2>
+      <form id="myForm">
+        <button type="button|submit|reset">Try Again!</button>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="startScreen">
+    <div id='floorBackground'><div id="maze"></div></div>
+    <!-- <div class="score-board">Score: <span class="score">0</span></div> -->
+      <!-- <div class="lifeCounter">Life<span class="life"></span></div> -->
   </div>
   <!-- <input type="text" id="cell-address"> -->
 </body>

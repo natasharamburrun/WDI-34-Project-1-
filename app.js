@@ -2,7 +2,7 @@ $(()=> {
   document.getElementById('myForm').reset();
   const audio = document.querySelector('audio');
 
-  let grid = [
+  const grid = [
     [9,9,9,9,9,9,0,9,9,9,9,9,9],
     [0,2,0,0,0,2,0,2,0,0,0,2,0],
     [9,9,2,9,9,9,0,9,9,9,2,9,9],
@@ -18,9 +18,7 @@ $(()=> {
     [9,9,9,9,9,9,0,9,9,9,9,9,9]
   ];
   //grid 11 by 10
-  //Player mouse cell 1, path cell 0, walls cell 9
-  //cheese cell 2
-  //computer cat cell 5
+
   $('#maze').on('mouseover', 'div', function() {
     $('#cell-address').val(`${$(this).data('x')}-${$(this).data('y')}`);
   });
@@ -41,13 +39,22 @@ $(()=> {
   let direction;
   let lifeCounter = 3;
   let treat = 0;
+  const $introPage = $('.intropage');
   const $endScreen = $('.endScreen');
   const $startScreen = $('.startScreen');
+  $startScreen.hide();
   $endScreen.hide();
 
   const $life = $('.life');
   $life.text(lifeCounter);
 
+
+  // BUTTONS IN THE DOCUMENT
+  $('#playBtn').on('click', function() {
+    console.log('click');
+    $introPage.hide();
+    $startScreen.show();
+  });
 
   //Audio to be added to the game
   function playTreats(){
@@ -59,6 +66,8 @@ $(()=> {
   //   audio.play();
   // }
 
+  //**********GAME OVER**********
+
   function mouseCaught() {
     cats.forEach(function(cat) {
       if($('#maze div').hasClass(`mouse ${cat.name}`)) {
@@ -68,7 +77,9 @@ $(()=> {
         //check if mouseLife < 1
         if(lifeCounter < 1) {
           // catchMouse();
+
           // End game page
+          $introPage.hide();
           $startScreen.hide();
           $endScreen.show();
         }
@@ -76,8 +87,13 @@ $(()=> {
       }
     });
   }
+
+
+  //**********Start Game**********
+
   //grid provides the cordinates for the items listed on the maze
-  function generateGrid(){
+  function startGame(){
+    //generate a grid
     $.each(grid,(i,row) => {
       $.each(row,(j,cell) => {
         const $element = $('<div />');
@@ -110,15 +126,19 @@ $(()=> {
       });
     });
   }
-  generateGrid();
+  startGame();
+
+  //**********MOVING THE MOUSE PLAYER*********
 
   $(document).on('keydown', function(e){
     e.preventDefault();
+    // if (!gameBegun) return false;
     const x = playerMovement.x;
     const y = playerMovement.y;
 
     let checkSquareX = x, checkSquareY = y;
     let $checkSq;
+
 
     function getDiv() {
       return $(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`);
@@ -129,8 +149,8 @@ $(()=> {
     function movePlayer(){
       mouseCaught();
       //button for player to press once game over
-      const resetButton = function () {
-      };
+      // const resetButton = function () {
+      // };
 
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
@@ -220,7 +240,10 @@ $(()=> {
         break;
     }
   });
-  //function to determine the position of the cats
+
+  //**********MOVING THE CAT ENEMIES**********
+
+  //determine the position of the cats
   function moveCats(newPosition, oldPosition, cat){
     if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
       // don't move
@@ -275,4 +298,5 @@ $(()=> {
       }
     });
   }, 200);
+
 });
