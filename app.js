@@ -6,23 +6,29 @@ $(()=> {
 
   const grid = [
     [9,9,9,9,9,9,0,9,9,9,9,9,9],
-    [0,2,0,0,0,2,0,2,0,0,0,2,0],
+    [0,2,3,0,0,2,0,2,0,0,0,2,0],
     [9,9,2,9,9,9,0,9,9,9,2,9,9],
     [9,9,6,9,9,9,2,9,9,9,5,9,9],
     [9,9,2,9,9,9,0,9,9,9,2,9,9],
     [9,9,0,9,9,9,0,9,9,9,0,9,9],
-    [0,0,0,0,0,0,1,0,0,0,0,0,0],
+    [0,0,0,0,0,0,1,0,0,0,3,0,0],
     [9,2,9,2,9,9,0,9,9,2,9,2,9],
-    [9,0,9,0,9,9,0,9,9,0,9,0,9],
+    [9,0,9,3,9,9,0,9,9,0,9,0,9],
     [9,2,9,2,9,9,2,9,9,2,9,2,9],
     [9,0,9,0,9,9,7,9,9,0,9,0,9],
     [0,2,0,0,0,2,0,2,0,0,0,2,0],
     [9,9,9,9,9,9,0,9,9,9,9,9,9]
   ];
 
+  // ****************************
   //computer cat cell 5 6 and 7
   //player mouse cell 1
   //cheese cell 2
+  //path cell 0
+  //wall cell 9
+  //mousetrap cell 3
+  //bomb cell 4
+  // ****************************
 
   $('#maze').on('mouseover', 'div', function() {
     $('#cell-address').val(`${$(this).data('x')}-${$(this).data('y')}`);
@@ -44,32 +50,43 @@ $(()=> {
   let direction;
   let lifeCounter = 3;
   let treat = 0;
+  // let mousetrap = 0;
+
+
+  // *******************
+  // LIVE COUNTER
+  // *******************
+
+  const $livesScore = $('#livesScore');
+  $livesScore.text('Lives:' + lifeCounter);
 
   // Different screen elements
   const $introPage = $('.intropage');
   const $endScreen = $('.endScreen');
-  const $startScreen = $('.startScreen');
+  const $playScreen = $('.playScreen');
+  const $winScreen = $('.winScreen');
   // hide screens at start
-  $startScreen.hide();
+  $playScreen.hide();
   $endScreen.hide();
+  $winScreen.hide();
 
-  const $life = $('.life');
-  $life.text(lifeCounter);
-
-
-  // =========================
+  // *******************
   // BUTTONS IN THE GAME
-  // =========================
+  // *******************
 
   $('#playBtn').on('click', function() {
     console.log('click');
     $introPage.hide();
-    $startScreen.show();
+    $playScreen.show();
     setup();
   });
   //reset the game to intro page
   document.getElementById('myForm').reset();
   //Audio to be added to the game
+
+  // ********************
+  // SOUNDS IN THE GAME
+  // ********************
   function playTreats(){
     audio.src = './sound/Ting.wav';
     audio.play();
@@ -79,21 +96,24 @@ $(()=> {
   //   audio.play();
   // }
 
-  //**********GAME OVER**********
+  // ********************
+  // MOUSE CAUGHT BY CAT - GAMEOVER
+  // ********************
+
 
   function mouseCaught() {
     cats.forEach(function(cat) {
       if($('#maze div').hasClass(`mouse ${cat.name}`)) {
         //once cat catch mouse loose a life
         lifeCounter--;
-        $life.text(lifeCounter);
+        $livesScore.text('Lives:' + lifeCounter);
         //check if mouseLife < 1
         if(lifeCounter < 1) {
           // catchMouse();
-
+          // mouseTrapCaught();
           // End game page
           $introPage.hide();
-          $startScreen.hide();
+          $playScreen.hide();
           $endScreen.show();
         }
         // alert('GAME OVER');
@@ -102,15 +122,18 @@ $(()=> {
   }
 
 
-  //*****************
+
+  //**********************************************
   //START GAME - ONLY ONCE PLAY BUTTON IS SELECTED
-  //*****************
+  //**********************************************
   function setup(){
     generateGrid();
   }
 
 
-  //grid provides the cordinates for the items listed on the maze
+  //******************************
+  //GENERATE THE GRID FOR THE GAME
+  //******************************
   function generateGrid(){
     //generate a grid
     $.each(grid,(i,row) => {
@@ -138,6 +161,8 @@ $(()=> {
           grid[cats[2].cellPosition.x][cats[2].cellPosition.y] = 0;
         } else if(cell === 2){
           $element.addClass('treat path');
+        } else if(cell === 3){
+          $element.addClass('mousetrap path');
         }
         $element.attr('data-x', i);
         $element.attr('data-y', j);
@@ -147,7 +172,10 @@ $(()=> {
   }
   // generateGrid();
 
-  //**********MOVING THE MOUSE PLAYER*********
+
+  //******************************
+  //MOVING THE MOUSE PLAYER
+  //******************************
 
   $(document).on('keydown', function(e){
     e.preventDefault();
@@ -171,12 +199,37 @@ $(()=> {
       if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')){
         treat ++;
         playTreats();
+        // lifeCounter--;
+        // $livesScore.text('Lives:' + lifeCounter);
       }
       if(treat > 21){
-        alert('you win!');
-        location.reload();
+        $winScreen.show();
+        $playScreen.hide();
+        $endScreen.hide();
+        // location.reload();
       }
-      $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat path').addClass('mouse');
+
+      // ********************
+      // MOUSE CAUGHT BY MOUSETRAP - LOOSE LIFE
+      // ********************
+
+
+      $('.mouse').removeClass('mouse').addClass('path');
+      //movePlayer function is there to enable the mouse to access the pathways and pick up traps
+      if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('mousetrap path')){
+        lifeCounter--;
+        $livesScore.text('Lives:' + lifeCounter);
+
+      }
+      if (lifeCounter < 1) {
+
+        // End game page
+        $introPage.hide();
+        $playScreen.hide();
+        $endScreen.show();
+      }
+
+      $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat mousetrap path').addClass('mouse');
     }
 
     //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
@@ -255,9 +308,13 @@ $(()=> {
     }
   });
 
-  //**********MOVING THE CAT ENEMIES**********
+
+  //******************************
+  //MOVING THE CAT ENEMIES
+  //******************************
 
   window.setInterval(function(){
+    //automated cats to move around the grid. Direction of travel is detemined randomly by computer
     direction = catDirection[Math.floor(Math.random() * 4)];
     //determine the position of the cats
     function moveCats(newPosition, oldPosition, cat){
@@ -276,9 +333,6 @@ $(()=> {
         return 'moved';
       }
     }
-
-    //automated cats to move around the grid. Direction of travel is detemined randomly by computer
-    // direction = catDirection[Math.floor(Math.random() * 2)];
 
     cats.forEach(function(cat) {
       const newPosition = {x: cat.cellPosition.x, y: cat.cellPosition.y};

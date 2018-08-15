@@ -129,10 +129,12 @@ h3 {
 }
 
 #maze div.cat2{
-  background-image: url("../image/tom-cat-cartoon.gif");
+  background-image: url("../image/butchcat2.png");
+  display: center;
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
+
 }
 
 #maze div.cat3{
@@ -140,4 +142,14 @@ h3 {
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
+}
+
+#maze div.mousetrap{
+  background-image: url("../image/stillmousetrap5.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  border-bottom: 0px;
 }
