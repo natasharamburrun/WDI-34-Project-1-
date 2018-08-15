@@ -22,7 +22,8 @@
       <div class="column">
         <div class="instructions">
           <h4>HOW TO PLAY GAME:</h4>
-          <p>Beware of the Tom Cat, if you get caught you loose the game!</p>
+          <p>Beware of Tom Cat and his sidekick Butch Cat, if you get caught you loose!</p>
+          <p>Tom and his alley friends have left mousetraps, beware if you get caught 3 times you loose!</p>
           <p>Collect all the cheese, well done you win!</p>
         </div>
         <div class="controls">
@@ -43,7 +44,7 @@
     </div>
     <hr>
       <p>A game made by Natasha Ramburrun</p>
-      <p>Animation created by William Hanna and Joseph Barbera from 1940 & produced by Warner Bros.</p>
+      <p>Animation created from 1940 by William Hanna and Joseph Barbera</p>
     </div>
   </div>
 
@@ -73,11 +74,19 @@
 
 
   <div class="playScreen">
-    <div id='floorBackground'><div id="maze"></div></div>
-    <div id="livesScore">0</div>
+    <div class="wrapper">
+      <div class="grid-container">
+        <div id='floorBackground'><div id="maze"></div></div>
+      </div>
+      <div class="lives-container">
+        <div id="livesScore">0</div>
+        <div id="treatScore">0</div>
+      </div>
+    </div>
     <!-- <div class="score-board">Score: <span class="score">0</span></div> -->
       <!-- <div class="lifeCounter">Life<span class="life"></span></div> -->
-  </div>
+    </div>
+    </div>
   <!-- <input type="text" id="cell-address"> -->
 </body>
 </html>

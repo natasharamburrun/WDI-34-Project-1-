@@ -15,7 +15,7 @@ $(()=> {
     [9,2,9,2,9,9,0,9,9,2,9,2,9],
     [9,0,9,3,9,9,0,9,9,0,9,0,9],
     [9,2,9,2,9,9,2,9,9,2,9,2,9],
-    [9,0,9,0,9,9,7,9,9,0,9,0,9],
+    [9,0,9,0,9,9,0,9,9,0,9,0,9],
     [0,2,0,0,0,2,0,2,0,0,0,2,0],
     [9,9,9,9,9,9,0,9,9,9,9,9,9]
   ];
@@ -58,7 +58,10 @@ $(()=> {
   // *******************
 
   const $livesScore = $('#livesScore');
-  $livesScore.text('Lives:' + lifeCounter);
+  $livesScore.text('Gerrys Lives 💙 = ' + lifeCounter);
+
+  const $treatScore = $('#treatScore');
+  $treatScore.text('Cheese Score 🧀 = ' + treat);
 
   // Different screen elements
   const $introPage = $('.intropage');
@@ -106,12 +109,9 @@ $(()=> {
       if($('#maze div').hasClass(`mouse ${cat.name}`)) {
         //once cat catch mouse loose a life
         lifeCounter--;
-        $livesScore.text('Lives:' + lifeCounter);
+        $livesScore.text('Gerrys Lives 💙 = ' + lifeCounter);
         //check if mouseLife < 1
         if(lifeCounter < 1) {
-          // catchMouse();
-          // mouseTrapCaught();
-          // End game page
           $introPage.hide();
           $playScreen.hide();
           $endScreen.show();
@@ -121,15 +121,13 @@ $(()=> {
     });
   }
 
-
-
   //**********************************************
   //START GAME - ONLY ONCE PLAY BUTTON IS SELECTED
   //**********************************************
+
   function setup(){
     generateGrid();
   }
-
 
   //******************************
   //GENERATE THE GRID FOR THE GAME
@@ -199,8 +197,9 @@ $(()=> {
       if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')){
         treat ++;
         playTreats();
-        // lifeCounter--;
+        $treatScore.text('Cheese Score 🧀 = ' + treat);
         // $livesScore.text('Lives:' + lifeCounter);
+
       }
       if(treat > 21){
         $winScreen.show();
@@ -218,11 +217,9 @@ $(()=> {
       //movePlayer function is there to enable the mouse to access the pathways and pick up traps
       if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('mousetrap path')){
         lifeCounter--;
-        $livesScore.text('Lives:' + lifeCounter);
-
+        $livesScore.text('Gerrys Lives 💙 = ' + lifeCounter);
       }
       if (lifeCounter < 1) {
-
         // End game page
         $introPage.hide();
         $playScreen.hide();

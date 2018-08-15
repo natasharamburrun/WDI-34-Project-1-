@@ -21,12 +21,13 @@ h1{
 p {
   color: black;
   // background-color: black;
-  font-size: 16px;
+  font-size: 21px;
+  margin: 5px;
 }
 
 
 h4{
-  font-size: 18px;
+  font-size: 25px;
   font-weight: bold;
   margin: 0px;
 }
@@ -36,8 +37,8 @@ body{
   width: 650px;
   overflow: auto;
   margin: 45px auto 55px;
-  text-align: center;
   background-color: #3988c5;
+  text-align: center;
   // background-image: url("../image/cartoon-cats.jpg");
 }
 
@@ -65,6 +66,32 @@ h3 {
   margin-top: 125px;
 }
 
+.wrapper {
+  display: flex;
+}
+
+.lives-container {
+  font-size: 30px;
+  color: yellow;
+  float: right;
+  padding-left: 100px;
+  padding-top: 100px;
+}
+
+#treatScore {
+  border: 1px solid white;
+  padding: 20px;
+  margin-top: 65px;
+}
+
+#livesScore {
+  border: 1px solid white;
+  padding: 20px;
+}
+
+.grid-container {
+  float: left;
+}
 
 #floorBackground{
   // background-image: url("../image/more_rough_wood_6.jpg");
@@ -145,7 +172,7 @@ h3 {
 }
 
 #maze div.mousetrap{
-  background-image: url("../image/stillmousetrap5.gif");
+  background-image: url("../image/mouse-trap.png");
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
