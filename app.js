@@ -1,5 +1,7 @@
+// =========================
+// DOMContentLoaded Listener
+// =========================
 $(()=> {
-  document.getElementById('myForm').reset();
   const audio = document.querySelector('audio');
 
   const grid = [
@@ -17,7 +19,10 @@ $(()=> {
     [0,2,0,0,0,2,0,2,0,0,0,2,0],
     [9,9,9,9,9,9,0,9,9,9,9,9,9]
   ];
-  //grid 11 by 10
+
+  //computer cat cell 5 6 and 7
+  //player mouse cell 1
+  //cheese cell 2
 
   $('#maze').on('mouseover', 'div', function() {
     $('#cell-address').val(`${$(this).data('x')}-${$(this).data('y')}`);
@@ -39,9 +44,12 @@ $(()=> {
   let direction;
   let lifeCounter = 3;
   let treat = 0;
+
+  // Different screen elements
   const $introPage = $('.intropage');
   const $endScreen = $('.endScreen');
   const $startScreen = $('.startScreen');
+  // hide screens at start
   $startScreen.hide();
   $endScreen.hide();
 
@@ -49,13 +57,18 @@ $(()=> {
   $life.text(lifeCounter);
 
 
-  // BUTTONS IN THE DOCUMENT
+  // =========================
+  // BUTTONS IN THE GAME
+  // =========================
+
   $('#playBtn').on('click', function() {
     console.log('click');
     $introPage.hide();
     $startScreen.show();
+    setup();
   });
-
+  //reset the game to intro page
+  document.getElementById('myForm').reset();
   //Audio to be added to the game
   function playTreats(){
     audio.src = './sound/Ting.wav';
@@ -89,10 +102,16 @@ $(()=> {
   }
 
 
-  //**********Start Game**********
+  //*****************
+  //START GAME - ONLY ONCE PLAY BUTTON IS SELECTED
+  //*****************
+  function setup(){
+    generateGrid();
+  }
+
 
   //grid provides the cordinates for the items listed on the maze
-  function startGame(){
+  function generateGrid(){
     //generate a grid
     $.each(grid,(i,row) => {
       $.each(row,(j,cell) => {
@@ -126,20 +145,19 @@ $(()=> {
       });
     });
   }
-  startGame();
+  // generateGrid();
 
   //**********MOVING THE MOUSE PLAYER*********
 
   $(document).on('keydown', function(e){
     e.preventDefault();
-    // if (!gameBegun) return false;
     const x = playerMovement.x;
     const y = playerMovement.y;
 
     let checkSquareX = x, checkSquareY = y;
     let $checkSq;
 
-
+    //function to check which square is not a wall so player can move within parameters
     function getDiv() {
       return $(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`);
     }
@@ -148,10 +166,6 @@ $(()=> {
     //cat catch mouse
     function movePlayer(){
       mouseCaught();
-      //button for player to press once game over
-      // const resetButton = function () {
-      // };
-
       $('.mouse').removeClass('mouse').addClass('path');
       //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
       if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')){
@@ -243,34 +257,37 @@ $(()=> {
 
   //**********MOVING THE CAT ENEMIES**********
 
-  //determine the position of the cats
-  function moveCats(newPosition, oldPosition, cat){
-    if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
+  window.setInterval(function(){
+    direction = catDirection[Math.floor(Math.random() * 4)];
+    //determine the position of the cats
+    function moveCats(newPosition, oldPosition, cat){
+      if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
       // don't move
       // console.log('bump');
-      return null;
-    } else {
+        return null;
+      } else {
       // No wall. We're free to move
       // remove cat from old square
-      if($(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass(cat).addClass('path'));
-      // add cat at new position
-      $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass(cat);
-      // update cat position
-      mouseCaught();
-      return 'moved';
+        if($(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass(cat).addClass('path'));
+        // add cat at new position
+        $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass(cat);
+        // update cat position
+        mouseCaught();
+        return 'moved';
+      }
     }
-  }
 
-  window.setInterval(function(){
     //automated cats to move around the grid. Direction of travel is detemined randomly by computer
-    direction = catDirection[Math.floor(Math.random() * catDirection.length)];
+    // direction = catDirection[Math.floor(Math.random() * 2)];
+
     cats.forEach(function(cat) {
       const newPosition = {x: cat.cellPosition.x, y: cat.cellPosition.y};
+
       switch(direction){
         //change the direction of the cats travel to up
         case 'up':
           newPosition.x -= 1;
-          //stops cats from traveling past the grid parameters
+          //stops cats from traveling past the grid parameter
           if (newPosition.x < 0) newPosition.x = 12;
           if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
           break;

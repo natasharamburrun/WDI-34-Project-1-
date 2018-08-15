@@ -10,6 +10,7 @@
   <title>Mouse Maze</title>
 </head>
   <header>
+    <img src="./image/t&gheadline.png" height=85px alt="title">
     <h1>MOUSE MAZE</h1>
     <audio id="audio"></audio>
   </header>
@@ -20,37 +21,41 @@
     <div class="intro-container">
       <div class="column">
         <div class="instructions">
-          <h4>INSTRUCTIONS</h4>
-          <p>Beware of the cats, if you get caught you loose the game!</p>
+          <h4>HOW TO PLAY GAME:</h4>
+          <p>Beware of the Tom Cat, if you get caught you loose the game!</p>
           <p>Collect all the cheese, well done you win!</p>
         </div>
         <div class="controls">
-          <h4>CONTROLS</h4>
+          <h4>CONTROLS:</h4>
           <p>Press <i class="fa fa-arrow-up"></i> <i class="fa fa-arrow-down"></i> <i class="fa fa-arrow-left"></i> <i class="fa fa-arrow-right"></i> to move.</p>
         </div>
       </div>
-      <div class="column">
-        <div class="mouseCharacter">
-          <img src="/images/loading.gif" height=250px alt="mouse animation">
-        </div>
+      <div class="columnCharacter">
         <div class="catCharacter">
-          <img src="/images/loading.gif" height=250px alt="cat animation">
+          <img src="./image/tom-cat-cartoon.gif" height=250px alt="cat animation">
         </div>
-        <div class="go">
-          <button id="playBtn">Play!</button>
+        <div class="mouseCharacter">
+          <img src="./image/gerrythemouse.png" height=125px alt="mouse animation">
         </div>
       </div>
+    <div class="Start">
+      <button id="playBtn">Play!</button>
+    </div>
     <hr>
-      <p>A game by Natasha Ramburrun</p>
+      <p>A game made by Natasha Ramburrun</p>
+      <p>Animation created by William Hanna and Joseph Barbera from 1940 & produced by Warner Bros.</p>
     </div>
   </div>
 
   <div class="endScreen">
     <div class="endGame-container">
       <h2>Oops!! You Got Caught</h2>
+      <h2>GAME OVER</h2>
       <form id="myForm">
         <button type="button|submit|reset">Try Again!</button>
       </form>
+      </br>
+      <img src="./image/Gameover_img.gif" height=200px alt="gameover_friends">
     </div>
   </div>
 
