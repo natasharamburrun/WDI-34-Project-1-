@@ -60,7 +60,7 @@ function mouseCaught() {
 ```
 
 #### Challenges:
-The main Challenges I faced during this project:
+The main challenges I faced during this project:
 - Time constraint to get all planned features in place, as this was a learning process, it took longer to build and work out how to solve problems.
 - Refactoring code. I feel most of my current code still needs further refactoring.
 - I had difficulties and still need to further develop how the computer automatically moves the cats, they currently do not move and spin into all directions (i.e. I would like the cats to reach the wall at the end of the path)
