@@ -32,13 +32,14 @@ GAME LOGIC:
 - Collect all cheese items, and the player wins the game.
 - If you encounter the cats, you lose the game.
 
-<p align="center"><img src="./image/intropage.png" width="700"/></p>
 
-<p align="center"><img src="./image/playgame.png" width="700"/></p>
+<p align="center">INTRO PAGE<img src="https://i.imgur.com/IkfZMLw.png" width="700"/></p>
 
-<p align="center"><img src="./image/gameover.png" width="700"/></p>
+<p align="center">PLAYING PAGE<img src="https://i.imgur.com/GlOcmNX.png" width="700"/></p>
 
-<p align="center"><img src="./image/youwon.png" width="700"/></p>
+<p align="center">WINNING PAGE<img src="https://i.imgur.com/DxNkL7f.png" width="700"/></p>
+
+<p align="center">LOOSING PAGE<img src="https://i.imgur.com/Ohu7O0v.png" width="700"/></p>
 
 ##### Challenges:
 I encountered many Challenges throughout the project including:
@@ -50,6 +51,6 @@ I encountered many Challenges throughout the project including:
 ##### Planned features:
 The game is relatively simple and my desire would be to add additional features to enhance the gaming experience.
 
-A variety of levels which gradually makes the user interaction harder which includes further obstacles and potions. 
+A variety of levels which gradually makes the user interaction harder which includes further obstacles and potions.
 
 I enjoyed producing this game and am happy with the final product as it works as a basic game. I am looking to implement the planned features but also looking forward to making other games to test my abilities.
