@@ -198,7 +198,6 @@ $(()=> {
         treat ++;
         playTreats();
         $treatScore.text('Cheese Score 🧀 = ' + treat);
-        // $livesScore.text('Lives:' + lifeCounter);
 
       }
       if(treat > 21){
