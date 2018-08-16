@@ -2,7 +2,6 @@
 // DOMContentLoaded Listener
 // =========================
 $(()=> {
-  const audio = document.querySelector('audio');
 
   const grid = [
     [9,9,9,9,9,9,0,9,9,9,9,9,9],
@@ -20,15 +19,11 @@ $(()=> {
     [9,9,9,9,9,9,0,9,9,9,9,9,9]
   ];
 
-  // ****************************
-  //computer cat cell 5 6 and 7
-  //player mouse cell 1
-  //cheese cell 2
-  //path cell 0
-  //wall cell 9
-  //mousetrap cell 3
-  //bomb cell 4
-  // ****************************
+
+  // ****************************************************************************************
+  //5 6 and 7 = cat * 1 = mouse * 2 = cheese * 0 = path * 9 = wall * 3 = mousetrap * 4 = bomb
+  // ****************************************************************************************
+
 
   $('#maze').on('mouseover', 'div', function() {
     $('#cell-address').val(`${$(this).data('x')}-${$(this).data('y')}`);
@@ -36,7 +31,6 @@ $(()=> {
 
   let playerMovement = {};
   const catDirection = ['up','down','left','right'];
-  //merge the cats inc name and position on grid
   const cats = [{
     name: 'cat1',
     cellPosition: {}
@@ -48,34 +42,44 @@ $(()=> {
     cellPosition: {}
   }];
   let direction;
+
   let lifeCounter = 3;
   let treat = 0;
-  // let mousetrap = 0;
-
-
-  // *******************
-  // LIVE COUNTER
-  // *******************
 
   const $livesScore = $('#livesScore');
-  $livesScore.text('Gerrys Lives 💙 = ' + lifeCounter);
+  $livesScore.text('Jerrys Lives 💙 = ' + lifeCounter);
 
   const $treatScore = $('#treatScore');
   $treatScore.text('Cheese Score 🧀 = ' + treat);
 
+  const audio = document.querySelector('audio');
+
+
+  // *************************
   // Different screen elements
+  // *************************
+
+
   const $introPage = $('.intropage');
   const $endScreen = $('.endScreen');
   const $playScreen = $('.playScreen');
   const $winScreen = $('.winScreen');
+
+
+  // *********************
   // hide screens at start
+  // *********************
+
+
   $playScreen.hide();
   $endScreen.hide();
   $winScreen.hide();
 
+
   // *******************
   // BUTTONS IN THE GAME
   // *******************
+
 
   $('#playBtn').on('click', function() {
     console.log('click');
@@ -87,39 +91,28 @@ $(()=> {
   document.getElementById('myForm').reset();
   //Audio to be added to the game
 
-  // ********************
+
+  // ******************
   // SOUNDS IN THE GAME
-  // ********************
+  // ******************
+
+
   function playTreats(){
-    audio.src = './sound/Ting.wav';
+    audio.src = './sound/hic-cup.wav';
     audio.play();
   }
   // function catchMouse(){
-  //   audio.src = './sound/Blop.wav';
+  //   audio.src = './sound/TheCatsMeOuch-Ah-Ha.wav';
   //   audio.play();
   // }
 
-  // ********************
-  // MOUSE CAUGHT BY CAT - GAMEOVER
-  // ********************
+  // function endGameMusic(){
+  //   audio.src = './sound/the-end.wav';
+  //   audio.play();
+  // }
 
 
-  function mouseCaught() {
-    cats.forEach(function(cat) {
-      if($('#maze div').hasClass(`mouse ${cat.name}`)) {
-        //once cat catch mouse loose a life
-        lifeCounter--;
-        $livesScore.text('Gerrys Lives 💙 = ' + lifeCounter);
-        //check if mouseLife < 1
-        if(lifeCounter < 1) {
-          $introPage.hide();
-          $playScreen.hide();
-          $endScreen.show();
-        }
-        // alert('GAME OVER');
-      }
-    });
-  }
+
 
   //**********************************************
   //START GAME - ONLY ONCE PLAY BUTTON IS SELECTED
@@ -129,9 +122,12 @@ $(()=> {
     generateGrid();
   }
 
+
   //******************************
   //GENERATE THE GRID FOR THE GAME
   //******************************
+
+
   function generateGrid(){
     //generate a grid
     $.each(grid,(i,row) => {
@@ -168,71 +164,98 @@ $(()=> {
       });
     });
   }
-  // generateGrid();
 
 
-  //******************************
+  //*****************************************
+  //MOUSE PICK UP CHEESE - GET POINTS AND WIN
+  //*****************************************
+
+
+  function obstacles(){
+    $('.mouse').removeClass('mouse').addClass('path');
+    if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')){
+      treat ++;
+      playTreats();
+      $treatScore.text('Cheese Score 🧀 = ' + treat);
+
+    }
+    if(treat > 21){
+      $winScreen.show();
+      $playScreen.hide();
+      $endScreen.hide();
+    }
+
+    //**************************************
+    //MOUSE CAUGHT BY MOUSETRAP - LOOSE LIFE
+    //**************************************
+
+
+    $('.mouse').removeClass('mouse').addClass('path');
+    if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('mousetrap path')){
+      lifeCounter--;
+      $livesScore.text('Jerrys Lives 💙 = ' + lifeCounter);
+    }
+    if (lifeCounter < 1) {
+      // End game page
+      $introPage.hide();
+      $playScreen.hide();
+      $endScreen.show();
+    }
+    $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat mousetrap path').addClass('mouse');
+  }
+  // ******************************
+  // MOUSE CAUGHT BY CAT - GAMEOVER
+  // ******************************
+
+
+  function mouseCaught() {
+    cats.forEach(function(cat) {
+      if($('#maze div').hasClass(`mouse ${cat.name}`)) {
+        //once cat catch mouse loose a life
+        // catchMouse();
+        lifeCounter--;
+        $livesScore.text('Jerrys Lives 💙 = ' + lifeCounter);
+        //check if mouseLife < 1
+        if(lifeCounter < 1) {
+          $introPage.hide();
+          $playScreen.hide();
+          $endScreen.show();
+        }
+        // alert('GAME OVER');
+      }
+    });
+  }
+
+
+  //***********************
   //MOVING THE MOUSE PLAYER
-  //******************************
+  //***********************
+
 
   $(document).on('keydown', function(e){
     e.preventDefault();
-    const x = playerMovement.x;
-    const y = playerMovement.y;
+    const xTom = playerMovement.x;
+    const yTom = playerMovement.y;
 
-    let checkSquareX = x, checkSquareY = y;
+    let checkSquareX = xTom, checkSquareY = yTom;
     let $checkSq;
 
-    //function to check which square is not a wall so player can move within parameters
     function getDiv() {
       return $(`div[data-x='${checkSquareX}'][data-y='${checkSquareY}']`);
     }
     const $playMove = getDiv();
 
-    //cat catch mouse
-    function movePlayer(){
-      mouseCaught();
-      $('.mouse').removeClass('mouse').addClass('path');
-      //movePlayer function is there to enable the mouse to access the pathways and pick up treats and repellent
-      if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('treat')){
-        treat ++;
-        playTreats();
-        $treatScore.text('Cheese Score 🧀 = ' + treat);
 
-      }
-      if(treat > 21){
-        $winScreen.show();
-        $playScreen.hide();
-        $endScreen.hide();
-        // location.reload();
-      }
+    // ************************************************
+    //  FUNCTION TO MOVE MOUSE UP, DOWN, LEFT AND RIGHT
+    // ************************************************
 
-      // ********************
-      // MOUSE CAUGHT BY MOUSETRAP - LOOSE LIFE
-      // ********************
-
-
-      $('.mouse').removeClass('mouse').addClass('path');
-      //movePlayer function is there to enable the mouse to access the pathways and pick up traps
-      if($(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).hasClass('mousetrap path')){
-        lifeCounter--;
-        $livesScore.text('Gerrys Lives 💙 = ' + lifeCounter);
-      }
-      if (lifeCounter < 1) {
-        // End game page
-        $introPage.hide();
-        $playScreen.hide();
-        $endScreen.show();
-      }
-
-      $(`div[data-x='${playerMovement.x}'][data-y='${playerMovement.y}']`).removeClass('treat mousetrap path').addClass('mouse');
-    }
 
     //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
     // playerMovement enables the mouse to move using the key up
     switch(e.which){
       case 38://up
-        checkSquareX = x - 1;
+        checkSquareX = xTom - 1;
         if (checkSquareX < 0) checkSquareX = 12;
         $checkSq = getDiv(checkSquareX, checkSquareY);
         if ($checkSq.hasClass('path')){
@@ -244,13 +267,12 @@ $(()=> {
           if(playerMovement.x < 0){
             playerMovement.x = 12;
           }
-          movePlayer();
+          obstacles();
         }
         break;
-        //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
-        // playerMovement enables the mouse to move using the key right
+
       case 39://right
-        checkSquareY = y + 1;
+        checkSquareY = yTom + 1;
         if (checkSquareY > 12) checkSquareY = 0;
         $checkSq = getDiv(checkSquareX, checkSquareY);
         if ($checkSq.hasClass('path')){
@@ -262,13 +284,12 @@ $(()=> {
           if(playerMovement.y > 12){
             playerMovement.y = 0;
           }
-          movePlayer();
+          obstacles();
         }
         break;
-        //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
-        // playerMovement enables the mouse to move using the key down
+
       case 40://down
-        checkSquareX = x + 1;
+        checkSquareX = xTom + 1;
         if (checkSquareX > 12) checkSquareX = 0;
         $checkSq = getDiv(checkSquareX, checkSquareY);
         if ($checkSq.hasClass('path')){
@@ -280,13 +301,12 @@ $(()=> {
           if(playerMovement.x > 12){
             playerMovement.x = 0;
           }
-          movePlayer();
+          obstacles();
         }
         break;
-        //checkSquare calculates the grid pathway for the mouse to move enables it to move across from one side of the grid to another
-        // playerMovement enables the mouse to move using the key left
+
       case 37://left
-        checkSquareY = y - 1;
+        checkSquareY = yTom - 1;
         if (checkSquareY < 0) checkSquareY = 12;
         $checkSq = getDiv(checkSquareX, checkSquareY);
         if ($checkSq.hasClass('path')){
@@ -298,7 +318,7 @@ $(()=> {
           if(playerMovement.y < 0){
             playerMovement.y = 12;
           }
-          movePlayer();
+          obstacles();
         }
         break;
     }
@@ -309,56 +329,51 @@ $(()=> {
   //MOVING THE CAT ENEMIES
   //******************************
 
+
   window.setInterval(function(){
-    //automated cats to move around the grid. Direction of travel is detemined randomly by computer
     direction = catDirection[Math.floor(Math.random() * 4)];
-    //determine the position of the cats
+    // if (catDirection.getRandomNumber(100) < 10) {
+    //   turn(catDirection.getRandomNumber(90) - 45);
+    // }
+
+
     function moveCats(newPosition, oldPosition, cat){
       if($(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).hasClass('wall')) {
-      // don't move
-      // console.log('bump');
         return null;
       } else {
-      // No wall. We're free to move
-      // remove cat from old square
         if($(`div[data-x='${oldPosition.x}'][data-y='${oldPosition.y}']`).removeClass(cat).addClass('path'));
-        // add cat at new position
         $(`div[data-x='${newPosition.x}'][data-y='${newPosition.y}']`).removeClass('path').addClass(cat);
-        // update cat position
         mouseCaught();
         return 'moved';
       }
     }
 
+    // **********************************************
+    // FUNCTION TO MOVE CATS UP, DOWN, LEFT AND RIGHT
+    // **********************************************
+
+
     cats.forEach(function(cat) {
       const newPosition = {x: cat.cellPosition.x, y: cat.cellPosition.y};
 
       switch(direction){
-        //change the direction of the cats travel to up
         case 'up':
           newPosition.x -= 1;
-          //stops cats from traveling past the grid parameter
           if (newPosition.x < 0) newPosition.x = 12;
           if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
           break;
-          //change the direction of the cats travel to right
         case 'right':
           newPosition.y += 1;
-          //stops cats from traveling past the grid parameters
           if (newPosition.y > 12) newPosition.y = 0;
           if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
           break;
-          //change the direction of the cats travel to down
         case 'down':
           newPosition.x += 1;
-          //stops cats from traveling past the grid parameters
           if (newPosition.x > 12) newPosition.x = 0;
           if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
           break;
-          //change the direction of the cats travel to left
         case 'left':
           newPosition.y -= 1;
-          //stops cats from traveling past the grid parameters
           if (newPosition.y < 0) newPosition.y = 12;
           if (moveCats(newPosition, cat.cellPosition, cat.name)) cat.cellPosition = newPosition;
           break;
