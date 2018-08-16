@@ -33,13 +33,13 @@ GAME LOGIC:
 - If you encounter the cats, you lose the game.
 
 
-<p align="center">INTRO PAGE<img src="https://i.imgur.com/IkfZMLw.png" width="700"/></p>
+<p align="center"><img src="https://i.imgur.com/IkfZMLw.png" width="700"/></p>
 
-<p align="center">PLAYING PAGE<img src="https://i.imgur.com/GlOcmNX.png" width="700"/></p>
+<p align="center"><img src="https://i.imgur.com/GlOcmNX.png" width="700"/></p>
 
-<p align="center">WINNING PAGE<img src="https://i.imgur.com/DxNkL7f.png" width="700"/></p>
+<p align="center"><img src="https://i.imgur.com/DxNkL7f.png" width="700"/></p>
 
-<p align="center">LOOSING PAGE<img src="https://i.imgur.com/Ohu7O0v.png" width="700"/></p>
+<p align="center"><img src="https://i.imgur.com/Ohu7O0v.png" width="700"/></p>
 
 ##### Challenges:
 I encountered many Challenges throughout the project including:
