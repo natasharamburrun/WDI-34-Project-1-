@@ -15,6 +15,7 @@ I decided to add the Tom and Jerry theme to the project as this is one of my chi
 Mouse Maze idea was taken from multiple maze games, my favourite cartoon characters and my imagination.
 
 <!-- #### visit website[] (This game is made for desktop only.) -->
+<hr>
 
 #### Game build:
 
@@ -40,8 +41,7 @@ GAME LOGIC:
 
 <p align="center"><img src="https://i.imgur.com/Ohu7O0v.png" width="700"/></p>
 
-CODE:
-The following code iterates through all the cats and when any of them collides with Jerry the mouse life is deducted when the life counter reaches < 1 the player is taken to the game over screen. I am happy with my use of the forEach loop logic.
+CODE: The following code iterates through all the cats and when any of them collides with Jerry the mouse life is deducted when the life counter reaches < 1 the player is taken to the game over screen. I am happy with my use of the forEach loop logic.
 
 ```
 function mouseCaught() {
@@ -59,12 +59,15 @@ function mouseCaught() {
 }
 ```
 
+<hr>
+
 #### Challenges:
 The main challenges I faced during this project:
 - Time constraint to get all planned features in place, as this was a learning process, it took longer to build and work out how to solve problems.
 - Refactoring code. I feel most of my current code still needs further refactoring.
 - I had difficulties and still need to further develop how the computer automatically moves the cats, they currently do not move and spin into all directions (i.e. I would like the cats to reach the wall at the end of the path)
 
+<hr>
 
 #### Planned features:
 The game is relatively simple, and I would desire to add additional features to enhance the gaming experience.
